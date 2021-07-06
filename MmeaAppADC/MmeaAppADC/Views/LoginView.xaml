@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MmeaAppADC.Views.LoginView"
+             xmlns:vm="clr-namespace:MmeaAppADC.ViewModels"
+             xmlns:helpers="clr-namespace:MmeaAppADC.Helpers"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <ContentPage.BindingContext>
+        <vm:LoginViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>        
+        <StackLayout xct:SafeAreaEffect.SafeArea="true">
+            <Label Text="Mmea" FontSize="40" FontAttributes="Bold"
+                   TextColor="Green" HorizontalTextAlignment="Center"
+                   Margin="0,20,0,50"/>
+            <ScrollView  Margin="0,40,0,0">
+                <Frame CornerRadius="5" Margin="20,0,20,40" HasShadow="True">
+                    <StackLayout>
+                        <Label Text="Login" FontSize="30" FontAttributes="Bold"
+                               TextColor="Green"
+                               Padding="0,15,15,15"/>
+                        <Entry Placeholder="Username" Text="{Binding Username}"/>
+                        <Entry Placeholder="Password" IsPassword="True"
+                               Text="{Binding Password}"/>
+                        <Button Text="Login" TextColor="White" BackgroundColor="Green"
+                                Margin="30,40,30,0" CornerRadius="5"
+                                Command="{Binding LoginCommand}"/>
+
+                        <Label Text="Forgot Password?" HorizontalTextAlignment="End"
+                               Margin="0,20,20,0" FontSize="16"/>
+                        <StackLayout Orientation="Horizontal" Margin="20">
+                            <Label Text="Don't Have Account?" FontSize="16"/>
+                            <Label Text="Register"  FontAttributes="Bold" FontSize="16">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding RegisterCommand}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                                   
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+            </ScrollView>            
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

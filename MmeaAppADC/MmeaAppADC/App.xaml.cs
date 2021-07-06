@@ -1,6 +1,6 @@
-﻿using System;
+﻿using MmeaAppADC.Views;
+using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace MmeaAppADC
 {
@@ -9,8 +9,16 @@ namespace MmeaAppADC
         public App()
         {
             InitializeComponent();
+            if (!string.IsNullOrEmpty(Preferences.Get("MyFirebaseRefreshToken", "")))
+            {
+                MainPage = new NavigationPage(new HomeView());
+            }
+            else
+            {
+                MainPage = new NavigationPage(new LoginView());
+            }
 
-            MainPage = new MainPage();
+
         }
 
         protected override void OnStart()

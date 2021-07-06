@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MmeaAppADC.Views.NotificationsView">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="Green" HeightRequest="20">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="Notifications" TextColor="White" FontSize="18"
+                           HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </Frame>
+            <ScrollView Margin="0,20">
+                <StackLayout>
+                    
+                    <xct:Expander Margin="10,10">
+                        <xct:Expander.Header>
+                            <Frame>
+                                <Label Text="Outbreak" FontAttributes="Bold"
+                     FontSize="Medium" TextColor="Red" />
+                            </Frame>
+                        </xct:Expander.Header>
+                        <Frame BorderColor="Red">
+                            <StackLayout>
+                                <Label x:Name="desc"/>
+                            </StackLayout>
+                        </Frame>
+                    </xct:Expander>
+                    <xct:Expander  Margin="10,10" >
+                        <xct:Expander.Header>
+                            <Frame>
+                                <Label Text="Winter"
+                     FontAttributes="Bold"
+                     FontSize="Medium"  TextColor="Orange"/>
+                            </Frame>
+                        </xct:Expander.Header>
+                        <Frame BorderColor="Orange">
+                            <StackLayout>
+                                <Label x:Name="causes"/>
+                            </StackLayout>
+                        </Frame>
+                    </xct:Expander>
+                    <xct:Expander Margin="10,10">
+                        <xct:Expander.Header>
+                            <Frame>
+                                <Label Text="Rain Forest"
+               FontAttributes="Bold"
+               FontSize="Medium" TextColor="Green" />
+                            </Frame>
+                        </xct:Expander.Header>
+                        <Frame BorderColor="Green">
+                            <StackLayout>
+                                <Label x:Name="recom"/>
+                            </StackLayout>
+                        </Frame>
+                    </xct:Expander>
+                    <xct:Expander Margin="10,10">
+                        <xct:Expander.Header>
+                            <Frame>
+                                <Label Text="Outbreak" FontAttributes="Bold"
+                     FontSize="Medium" TextColor="Red" />
+                            </Frame>
+                        </xct:Expander.Header>
+                        <Frame BorderColor="Red">
+                            <StackLayout>
+                                <Label x:Name="descc"/>
+                            </StackLayout>
+                        </Frame>
+                    </xct:Expander>
+                    <xct:Expander  Margin="10,10" >
+                        <xct:Expander.Header>
+                            <Frame>
+                                <Label Text="Winter"
+                     FontAttributes="Bold"
+                     FontSize="Medium"  TextColor="Orange"/>
+                            </Frame>
+                        </xct:Expander.Header>
+                        <Frame BorderColor="Orange">
+                            <StackLayout>
+                                <Label x:Name="causess"/>
+                            </StackLayout>
+                        </Frame>
+                    </xct:Expander>
+                    <xct:Expander Margin="10,10">
+                        <xct:Expander.Header>
+                            <Frame>
+                                <Label Text="Rain Forest"
+               FontAttributes="Bold"
+               FontSize="Medium" TextColor="Green" />
+                            </Frame>
+                        </xct:Expander.Header>
+                        <Frame BorderColor="Green">
+                            <StackLayout>
+                                <Label x:Name="recomm"/>
+                            </StackLayout>
+                        </Frame>
+                    </xct:Expander>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,66 @@
+﻿using Acr.UserDialogs;
+using MmeaAppADC.Services;
+using MmeaAppADC.Views;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+
+namespace MmeaAppADC.ViewModels
+{
+    public class LoginViewModel : BaseViewModel
+    {
+        private string username;
+        public string Username
+        {
+            get { return username; }
+            set { username = value; OnPropertyChanged(); }
+        }
+
+        private string password;
+        public string Password
+        {
+            get { return password; }
+            set { password = value; OnPropertyChanged(); }
+        }
+
+        public Command LoginCommand { get; set; }
+        public Command RegisterCommand { get; set; }
+
+        public AuthService _authService;
+        public LoginViewModel()
+        {
+            LoginCommand = new Command(async () => await LoginAsync());
+            RegisterCommand = new Command(async () => await RegisterAsync());
+            _authService = new AuthService();
+        }
+
+        private async Task RegisterAsync()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new RegisterView());
+        }
+
+        //Method to Login Users
+        private async Task LoginAsync()
+        {
+            UserDialogs.Instance.ShowLoading("Loading...");
+            //Auth Service
+            var isvalid = await _authService.LoginUser(Username, Password);
+            if (isvalid)
+            {
+                //await Application.Current.MainPage.Navigation.PushAsync(new HomeView());
+                UserDialogs.Instance.HideLoading();
+                Application.Current.MainPage = new NavigationPage(new HomeView());
+            }
+            else
+            {
+
+                // await Application.Current.MainPage.DisplayAlert("Failed", "Incorrect /Username or Password", "Ok");
+                //await Application.Current.MainPage.Navigation.PushAsync(new HomeView());
+                UserDialogs.Instance.HideLoading();
+                Application.Current.MainPage = new NavigationPage(new HomeView());
+            }
+
+
+            //Navigate to Home page
+        }
+    }
+}
