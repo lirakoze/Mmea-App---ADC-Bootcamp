@@ -10,7 +10,6 @@ namespace MmeaAppADC.Services
     public class DBservice
     {
         private FirebaseClient _firebase;
-
         public DBservice()
         {
             _firebase = new FirebaseClient(KeysAndUrls.FirebaseDatabaseKey);
@@ -48,6 +47,28 @@ namespace MmeaAppADC.Services
             return list;
 
         }
+
+        //Getting agrovets from a given region
+        public async Task<County> GetCounty(string county)
+        {
+
+            var list = new List<County>();
+
+            list = (await _firebase.Child("COUNTIES").OnceAsync<County>()).Select(ct => new County
+            {
+                Name = ct.Object.Name,
+                SubCounties = ct.Object.SubCounties
+            }).ToList();
+
+            return list.Where(u => u.Name == county).FirstOrDefault();
+
+        }
+
+        public void Picker_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+
+        }
+
 
 
     }

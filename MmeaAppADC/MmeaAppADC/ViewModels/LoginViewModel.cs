@@ -35,7 +35,7 @@ namespace MmeaAppADC.ViewModels
 
         private async Task RegisterAsync()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new RegisterView());
+            await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterView());
         }
 
         //Method to Login Users

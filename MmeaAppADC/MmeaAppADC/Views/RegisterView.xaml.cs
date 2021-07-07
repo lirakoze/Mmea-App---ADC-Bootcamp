@@ -12,5 +12,6 @@ namespace MmeaAppADC.Views
             InitializeComponent();
             BindingContext = new ViewModels.RegisterViewModel();
         }
+
     }
 }

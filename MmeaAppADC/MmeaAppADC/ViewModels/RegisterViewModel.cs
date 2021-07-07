@@ -3,7 +3,7 @@ using MmeaAppADC.Models;
 using MmeaAppADC.Services;
 using MmeaAppADC.Views;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -41,12 +41,6 @@ namespace MmeaAppADC.ViewModels
             get { return confirmPassword; }
             set { confirmPassword = value; OnPropertyChanged(); }
         }
-        private string county;
-        public string County
-        {
-            get { return county; }
-            set { county = value; OnPropertyChanged(); }
-        }
         private string subCounty;
         public string SubCounty
         {
@@ -60,14 +54,21 @@ namespace MmeaAppADC.ViewModels
             set { type = value; OnPropertyChanged(); }
         }
         private string phoneno;
+
+        private bool isVisible;
+        public bool IsVisible
+        {
+            get { return isVisible; }
+            set { isVisible = value; OnPropertyChanged(); }
+        }
         public string PhoneNo
         {
             get { return phoneno; }
             set { phoneno = value; OnPropertyChanged(); }
         }
 
-        public IList<County> Counties { get; set; }
-
+        public ObservableCollection<County> Counties { get; set; }
+        public ObservableCollection<SubCounty> SubCounties { get; set; }
         private County selectedCounty;
         public County SelectedCounty
         {
@@ -80,9 +81,11 @@ namespace MmeaAppADC.ViewModels
                 if (selectedCounty != value)
                 {
                     selectedCounty = value; OnPropertyChanged();
+                    GetSubCounties();
                 }
             }
         }
+
 
         public Command LoginCommand { get; set; }
         public Command RegisterCommand { get; set; }
@@ -92,18 +95,13 @@ namespace MmeaAppADC.ViewModels
         {
             LoginCommand = new Command(() => LoginAsync());
             RegisterCommand = new Command(async () => await RegisterAsync());
+
             _authService = new AuthService();
             _dbService = new DBservice();
-
-            List<County> list = new List<County> {
-            new County{Name="Bungoma"},
-            new County{Name="Busia"}
-            };
-
-            Counties = list;
-            // Counties = _dbService.GetCounties().Result;
-
-            //GetCounties();
+            Counties = new ObservableCollection<County>();
+            SubCounties = new ObservableCollection<SubCounty>();
+            IsVisible = false;
+            GetCounties();
         }
 
         private async Task RegisterAsync()
@@ -125,7 +123,7 @@ namespace MmeaAppADC.ViewModels
                     LastName = Lastname,
                     Email = Email,
                     PhoneNo = PhoneNo,
-                    County = County,
+                    County = SelectedCounty.Name,
                     SubCounty = SubCounty,
                     Type = Type
                 };
@@ -148,11 +146,34 @@ namespace MmeaAppADC.ViewModels
 
         private void LoginAsync()
         {
-            //await Application.Current.MainPage.Navigation.PushModalAsync(new LoginView());
             Application.Current.MainPage = new NavigationPage(new LoginView());
         }
-        private async Task GetCounties()
+        private async void GetCounties()
         {
+            var list = await _dbService.GetCounties();
+            foreach (var county in list)
+            {
+                Counties.Add(county);
+            }
         }
+        private async Task GetSubCounties()
+        {
+            var county = await _dbService.GetCounty(SelectedCounty.Name);
+            if (county.SubCounties.Count == 0)
+            {
+                IsVisible = false;
+                SubCounties.Clear();
+                return;
+            }
+
+            IsVisible = true;
+            SubCounties.Clear();
+            foreach (var sub in county.SubCounties)
+            {
+                SubCounties.Add(sub);
+            }
+
+        }
+
     }
 }

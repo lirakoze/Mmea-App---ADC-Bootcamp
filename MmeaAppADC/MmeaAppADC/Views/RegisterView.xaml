@@ -26,15 +26,14 @@
                         <Picker Title="--Select County--" HorizontalTextAlignment="Center"
                                 ItemsSource="{Binding Counties}" ItemDisplayBinding="{Binding Name}"
                                  SelectedItem="{Binding SelectedCounty}"/>
+                        
 
                         <Picker Title="--Select Sub County--" HorizontalTextAlignment="Center"
-                                SelectedItem="{Binding SubCounty}">
-                            <Picker.Items>
-                                <x:String>Kasarani</x:String>
-                                <x:String>Embakasi</x:String>
-                                <x:String>Dagoretti</x:String>                                
-                            </Picker.Items>
-                        </Picker>
+                                ItemsSource="{Binding SubCounties}"
+                                ItemDisplayBinding="{Binding Name}"
+                                SelectedItem="{Binding SubCounty}"
+                                IsVisible="{Binding IsVisible, Mode=TwoWay}"/>
+                        
                         <Picker Title="--Register As--" HorizontalTextAlignment="Center"
                                 SelectedItem="{Binding Type}">
                             <Picker.Items>
