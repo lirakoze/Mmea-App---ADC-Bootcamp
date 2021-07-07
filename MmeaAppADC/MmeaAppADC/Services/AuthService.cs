@@ -5,6 +5,7 @@ using MmeaAppADC.KeysAndEndpoints;
 using MmeaAppADC.Models;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -54,8 +55,19 @@ namespace MmeaAppADC.Services
                 var auth = await _authProvider.SignInWithEmailAndPasswordAsync(email, password);
                 var content = auth.GetFreshAuthAsync();
                 var serializedContent = JsonConvert.SerializeObject(content);
+                var uid = auth.User.LocalId;
+
                 Preferences.Set("MyFirebaseFreshToken", serializedContent);
+                Preferences.Set("UserId", uid);
+
+                var userInfo = GetUserInfo(uid);
+                Preferences.Set("County", userInfo.Result.County);
+                Preferences.Set("SubCounty", userInfo.Result.SubCounty);
+                Preferences.Set("PhoneNo", userInfo.Result.PhoneNo);
+                Preferences.Set("Type", userInfo.Result.Type);
+
                 return true;
+
             }
             catch (Exception ex)
             {
@@ -79,6 +91,7 @@ namespace MmeaAppADC.Services
 
                 //retireve user info
                 //savedfirebaseauth.User.DisplayName;
+
             }
             catch (Exception ex)
             {
@@ -90,6 +103,27 @@ namespace MmeaAppADC.Services
         public void LogoutUser()
         {
             Preferences.Remove("MyFirebaseRefreshToken");
+            Preferences.Remove("UserId");
+            Preferences.Remove("County");
+            Preferences.Remove("SubCounty");
+            Preferences.Remove("PhoneNo");
+            Preferences.Remove("Type");
+        }
+        private async Task<ApplicationUser> GetUserInfo(string userId)
+        {
+
+            var user = new ApplicationUser();
+
+            user = (await _firebase.Child("USERS").OnceAsync<ApplicationUser>()).Select(u => new ApplicationUser
+            {
+                FirstName = u.Object.FirstName,
+                LastName = u.Object.LastName,
+                County = u.Object.County,
+                SubCounty = u.Object.SubCounty,
+                PhoneNo = u.Object.PhoneNo,
+                Type = u.Object.Type
+            }).Where(u => u.Id == userId).FirstOrDefault();
+            return user;
         }
     }
 }

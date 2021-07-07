@@ -13,7 +13,7 @@ namespace MmeaAppADC.ViewModels
             set { vets = value; OnPropertyChanged(); }
         }
 
-        public ContactVetViewModel()
+        public ContactVetViewModel(string userId)
         {
             Vets = new ObservableCollection<ApplicationUser>()
             {
@@ -40,6 +40,18 @@ namespace MmeaAppADC.ViewModels
                     FirstName="Rayan",LastName="Person", County="Nairobi", SubCounty="Embakasi", PhoneNo="071232416"
                 }
             };
+
         }
+        public ContactVetViewModel()
+        {
+
+        }
+
+        /*private async Task<List<ApplicationUser>> GetVets(string userId)
+        {
+
+        }*/
+
+
     }
 }

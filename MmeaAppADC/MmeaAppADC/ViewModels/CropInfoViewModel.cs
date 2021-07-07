@@ -1,6 +1,7 @@
 ﻿using MmeaAppADC.Models;
 using MmeaAppADC.Views;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MmeaAppADC.ViewModels
@@ -58,7 +59,10 @@ namespace MmeaAppADC.ViewModels
         }
         private async Task ContactVetAsync()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new ContactVetView());
+            //get user id from preferences
+            var userId = Preferences.Get("UserId", "");
+
+            await Application.Current.MainPage.Navigation.PushAsync(new ContactVetView(userId));
         }
 
 

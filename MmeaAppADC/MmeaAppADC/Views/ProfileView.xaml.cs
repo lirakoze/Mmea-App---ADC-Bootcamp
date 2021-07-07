@@ -5,12 +5,12 @@ using Xamarin.Forms.Xaml;
 namespace MmeaAppADC.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ContactVetView : ContentPage
+    public partial class ProfileView : ContentPage
     {
-        public ContactVetView(string userId)
+        public ProfileView()
         {
             InitializeComponent();
-            BindingContext = new ViewModels.ContactVetViewModel(userId);
+            BindingContext = new ViewModels.ProfileViewModel();
         }
     }
 }

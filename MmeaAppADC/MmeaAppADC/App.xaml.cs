@@ -9,7 +9,7 @@ namespace MmeaAppADC
         public App()
         {
             InitializeComponent();
-            if (!string.IsNullOrEmpty(Preferences.Get("MyFirebaseRefreshToken", "")))
+            if (!string.IsNullOrEmpty(Preferences.Get("UserId", "")))
             {
                 MainPage = new NavigationPage(new HomeView());
             }

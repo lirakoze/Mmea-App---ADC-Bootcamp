@@ -15,5 +15,6 @@
     <pages:FeedView Title="Feed" />
     <pages:DiagnoseView Title="Diagnose"/>
     <pages:NotificationsView Title="Notifications"/>
+    <pages:ProfileView Title="Profile"/>
 
 </TabbedPage>
