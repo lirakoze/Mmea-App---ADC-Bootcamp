@@ -31,9 +31,10 @@ namespace MmeaAppADC.Services
         //Getting agrovets from a given region
         public async Task<List<ApplicationUser>> GetAgroVets(string subcounty)
         {
+
             var list = new List<ApplicationUser>();
 
-            list = (await _firebase.Child("COUNTIES").OnceAsync<ApplicationUser>()).Select(vet => new ApplicationUser
+            list = (await _firebase.Child("USERS").OnceAsync<ApplicationUser>()).Select(vet => new ApplicationUser
             {
                 FirstName = vet.Object.FirstName,
                 LastName = vet.Object.LastName,
@@ -42,7 +43,7 @@ namespace MmeaAppADC.Services
                 SubCounty = vet.Object.SubCounty,
                 PhoneNo = vet.Object.PhoneNo,
                 Type = vet.Object.Type
-            }).Where(vet => vet.SubCounty == subcounty && vet.Type == "Agro-Vet").ToList();
+            }).Where(u => u.SubCounty == subcounty && u.Type == "Agro-Vet").ToList();
 
             return list;
 

@@ -5,6 +5,7 @@ using MmeaAppADC.KeysAndEndpoints;
 using MmeaAppADC.Models;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -57,14 +58,15 @@ namespace MmeaAppADC.Services
                 var serializedContent = JsonConvert.SerializeObject(content);
                 var uid = auth.User.LocalId;
 
+                var userInfo = await GetUserInfo(uid);
+
                 Preferences.Set("MyFirebaseFreshToken", serializedContent);
                 Preferences.Set("UserId", uid);
-
-                var userInfo = GetUserInfo(uid);
-                Preferences.Set("County", userInfo.Result.County);
-                Preferences.Set("SubCounty", userInfo.Result.SubCounty);
-                Preferences.Set("PhoneNo", userInfo.Result.PhoneNo);
-                Preferences.Set("Type", userInfo.Result.Type);
+                Preferences.Set("County", userInfo.County);
+                Preferences.Set("SubCounty", userInfo.SubCounty);
+                Preferences.Set("Email", userInfo.Email);
+                Preferences.Set("PhoneNo", userInfo.PhoneNo);
+                Preferences.Set("Type", userInfo.Type);
 
                 return true;
 
@@ -102,28 +104,26 @@ namespace MmeaAppADC.Services
         //Logout User
         public void LogoutUser()
         {
-            Preferences.Remove("MyFirebaseRefreshToken");
-            Preferences.Remove("UserId");
-            Preferences.Remove("County");
-            Preferences.Remove("SubCounty");
-            Preferences.Remove("PhoneNo");
-            Preferences.Remove("Type");
+            Preferences.Clear();
         }
         private async Task<ApplicationUser> GetUserInfo(string userId)
         {
+            var list = await GetUsers();
 
-            var user = new ApplicationUser();
-
-            user = (await _firebase.Child("USERS").OnceAsync<ApplicationUser>()).Select(u => new ApplicationUser
+            return list.Where(u => u.Id == userId).FirstOrDefault();
+        }
+        private async Task<List<ApplicationUser>> GetUsers()
+        {
+            return (await _firebase.Child("USERS").OnceAsync<ApplicationUser>()).Select(u => new ApplicationUser
             {
+                Id = u.Object.Id,
                 FirstName = u.Object.FirstName,
                 LastName = u.Object.LastName,
                 County = u.Object.County,
                 SubCounty = u.Object.SubCounty,
                 PhoneNo = u.Object.PhoneNo,
                 Type = u.Object.Type
-            }).Where(u => u.Id == userId).FirstOrDefault();
-            return user;
+            }).ToList();
         }
     }
 }

@@ -7,10 +7,10 @@ namespace MmeaAppADC.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ContactVetView : ContentPage
     {
-        public ContactVetView(string userId)
+        public ContactVetView()
         {
             InitializeComponent();
-            BindingContext = new ViewModels.ContactVetViewModel(userId);
+            BindingContext = new ViewModels.ContactVetViewModel();
         }
     }
 }

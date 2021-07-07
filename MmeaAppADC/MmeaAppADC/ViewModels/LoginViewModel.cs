@@ -52,11 +52,12 @@ namespace MmeaAppADC.ViewModels
             }
             else
             {
-
-                // await Application.Current.MainPage.DisplayAlert("Failed", "Incorrect /Username or Password", "Ok");
-                //await Application.Current.MainPage.Navigation.PushAsync(new HomeView());
                 UserDialogs.Instance.HideLoading();
-                Application.Current.MainPage = new NavigationPage(new HomeView());
+                await Application.Current.MainPage.DisplayAlert("Failed", "Incorrect /Username or Password", "Ok");
+                return;
+                //await Application.Current.MainPage.Navigation.PushAsync(new HomeView());
+
+                //Application.Current.MainPage = new NavigationPage(new HomeView());
             }
 
 
