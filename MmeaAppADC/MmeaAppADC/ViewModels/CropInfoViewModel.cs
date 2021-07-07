@@ -1,4 +1,7 @@
 ﻿using MmeaAppADC.Models;
+using MmeaAppADC.Views;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace MmeaAppADC.ViewModels
 {
@@ -40,16 +43,24 @@ namespace MmeaAppADC.ViewModels
             set { recommendation = value; OnPropertyChanged(); }
         }
 
+        public Command ContactVetCommand { get; set; }
+
         public CropInfoViewModel(ClassificationResult result)
         {
             cropTitle = result.Tag;
             confidence = result.Confidence.ToString();
-        }
 
+            ContactVetCommand = new Command(async () => await ContactVetAsync());
+        }
         public CropInfoViewModel()
         {
 
         }
+        private async Task ContactVetAsync()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new ContactVetView());
+        }
+
 
     }
 }

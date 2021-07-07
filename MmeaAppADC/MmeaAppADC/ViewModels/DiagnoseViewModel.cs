@@ -10,12 +10,6 @@ namespace MmeaAppADC.ViewModels
 {
     public class DiagnoseViewModel : BaseViewModel
     {
-        private bool isRunning;
-        public bool IsRunning
-        {
-            get { return isRunning; }
-            set { isRunning = value; OnPropertyChanged(); }
-        }
 
         private string image;
         public string Image
@@ -86,6 +80,7 @@ namespace MmeaAppADC.ViewModels
             if (photo == null)
             {
                 Image = null;
+                imageStream.Dispose();
                 return;
             }
             // save the file into local storage
@@ -93,6 +88,7 @@ namespace MmeaAppADC.ViewModels
             using (var stream = await photo.OpenReadAsync())
             using (var newStream = File.OpenWrite(newFile))
                 await stream.CopyToAsync(newStream);
+
             imageStream = await photo.OpenReadAsync();
             Image = newFile;
         }
@@ -105,12 +101,15 @@ namespace MmeaAppADC.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", "An Image is required for processing.", "Ok");
                 return;
             }
+            else
+            {
+                var result = await _diagnosisService.GetImageClassification(imageStream);
+                Image = null;
+                imageStream = null;
+                //Navigate to result page
+                await Application.Current.MainPage.Navigation.PushAsync(new CropInfoView(result));
+            }
 
-            var result = await _diagnosisService.GetImageClassification(imageStream);
-            Image = null;
-
-            //Navigate to result page
-            await Application.Current.MainPage.Navigation.PushAsync(new CropInfoView(result));
         }
     }
 }

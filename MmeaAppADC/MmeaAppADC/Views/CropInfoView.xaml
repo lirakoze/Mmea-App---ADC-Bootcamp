@@ -89,7 +89,8 @@
                     </xct:Expander>
 
                     <Button Text=" Contact Vet" BackgroundColor="Green" TextColor="White"
-                        CornerRadius="5" HorizontalOptions="Center"/>
+                        CornerRadius="5" Command="{Binding ContactVetCommand}"
+                            Margin="40,15"/>
                 </StackLayout>
             </ScrollView>
             

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:MmeaAppADC.ViewModels"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MmeaAppADC.Views.ContactVetView">
+
+    <ContentPage.BindingContext>
+        <vm:ContactVetViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="Green" HeightRequest="22">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="Contact Agro-vet" TextColor="White" FontSize="18"
+                           HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </Frame>
+
+            <ScrollView Margin="10">
+                <StackLayout>
+
+                    <CollectionView ItemsSource="{Binding Vets}" Margin="0,20,0,0">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Orientation="Horizontal">
+                                    <Frame HeightRequest="100" WidthRequest="200"
+                                           Margin="10,0,0,20">
+                                        <StackLayout>
+                                            <Label FontAttributes="Bold" FontSize="20">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <FormattedString.Spans>
+                                                            <Span Text="{Binding FirstName}"/>
+                                                            <Span Text=" "/>
+                                                            <Span Text="{Binding LastName}"/>
+                                                        </FormattedString.Spans>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label FontSize="16">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <FormattedString.Spans>
+                                                            <Span Text="{Binding County}"/>
+                                                            <Span Text=" , "/>
+                                                            <Span Text="{Binding SubCounty}"/>
+                                                        </FormattedString.Spans>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Text="{Binding PhoneNo}" FontSize="16"/>
+                                        </StackLayout>                                        
+                                    </Frame>
+                                    <StackLayout Orientation="Vertical"
+                                                 Margin="20,0,0,0">
+                                        <Button Text="Call" Margin="0,0,0,15" BackgroundColor="Green"
+                                                TextColor="White"/>
+                                        <Button Text="Send" BackgroundColor="Orange"
+                                                TextColor="White"/>
+                                    </StackLayout>
+                                </StackLayout> 
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    
+                </StackLayout>
+            </ScrollView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
