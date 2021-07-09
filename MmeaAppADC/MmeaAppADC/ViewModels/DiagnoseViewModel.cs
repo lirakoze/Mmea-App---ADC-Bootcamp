@@ -1,4 +1,6 @@
-﻿using MmeaAppADC.Services;
+﻿using Acr.UserDialogs;
+using MmeaAppADC.Models;
+using MmeaAppADC.Services;
 using MmeaAppADC.Views;
 using System;
 using System.IO;
@@ -18,15 +20,15 @@ namespace MmeaAppADC.ViewModels
             set { image = value; OnPropertyChanged(); }
         }
         private DiagnosisService _diagnosisService { get; set; }
+        private DBservice _dBservice { get; set; }
         public Command BrowseGalleryCommand { get; set; }
         public Command TakePhotoCommand { get; set; }
         public Command DiagnoseCommand { get; set; }
-
-        private Stream imageStream;
-
+        private FileResult PhotoFile { get; set; }
         public DiagnoseViewModel()
         {
             _diagnosisService = new DiagnosisService();
+            _dBservice = new DBservice();
             BrowseGalleryCommand = new Command(async () => await BrowseGalleryAsync());
             TakePhotoCommand = new Command(async () => await TakePhotoAsync());
             DiagnoseCommand = new Command(async () => await DiagnoseAsync());
@@ -80,34 +82,55 @@ namespace MmeaAppADC.ViewModels
             if (photo == null)
             {
                 Image = null;
-                imageStream.Dispose();
+                PhotoFile = null;
                 return;
             }
+            PhotoFile = photo;
             // save the file into local storage
             var newFile = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
             using (var stream = await photo.OpenReadAsync())
             using (var newStream = File.OpenWrite(newFile))
                 await stream.CopyToAsync(newStream);
-
-            imageStream = await photo.OpenReadAsync();
             Image = newFile;
         }
-
-
         private async Task DiagnoseAsync()
         {
-            if (imageStream == null)
+            UserDialogs.Instance.ShowLoading("Diagnosis Underway....");
+
+            if (PhotoFile.OpenReadAsync() == null)
             {
+                UserDialogs.Instance.HideLoading();
                 await Application.Current.MainPage.DisplayAlert("Error", "An Image is required for processing.", "Ok");
                 return;
             }
             else
             {
-                var result = await _diagnosisService.GetImageClassification(imageStream);
-                Image = null;
-                imageStream = null;
-                //Navigate to result page
-                await Application.Current.MainPage.Navigation.PushAsync(new CropInfoView(result));
+                var result = await _diagnosisService.GetImageClassification(await PhotoFile.OpenReadAsync());
+                var url = await _dBservice.UploadDiagnosisPhoto(await PhotoFile.OpenReadAsync(), PhotoFile.FileName);
+
+                UserDiagnosis diagnosis = new UserDiagnosis
+                {
+                    UserId = Preferences.Get("UserId", ""),
+                    Tag = result.Tag,
+                    Confidence = result.Confidence,
+                    County = Preferences.Get("County", ""),
+                    SubCounty = Preferences.Get("SubCounty", ""),
+                    ImageUrl = url,
+                    DiagnosisDate = DateTime.Now
+                };
+
+                var isSuccess = await _dBservice.SaveUserDiagnosis(diagnosis, Preferences.Get("County", ""));
+
+                UserDialogs.Instance.HideLoading();
+
+                if (isSuccess)
+                {
+                    Image = null;
+                    //Navigate to result page
+                    await Application.Current.MainPage.Navigation.PushAsync(new CropInfoView(result, url));
+                }
+                return;
+
             }
 
         }

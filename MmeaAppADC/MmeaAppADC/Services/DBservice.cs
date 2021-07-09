@@ -1,7 +1,11 @@
 ﻿using Firebase.Database;
+using Firebase.Database.Query;
+using Firebase.Storage;
 using MmeaAppADC.KeysAndEndpoints;
 using MmeaAppADC.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,9 +14,11 @@ namespace MmeaAppADC.Services
     public class DBservice
     {
         private FirebaseClient _firebase;
+        private FirebaseStorage _firebaseStorage;
         public DBservice()
         {
             _firebase = new FirebaseClient(KeysAndUrls.FirebaseDatabaseKey);
+            _firebaseStorage = new FirebaseStorage(KeysAndUrls.FirebaseStorageKey);
         }
 
         public async Task<List<County>> GetCounties()
@@ -63,13 +69,39 @@ namespace MmeaAppADC.Services
             return list.Where(u => u.Name == county).FirstOrDefault();
 
         }
-
-        public void Picker_SelectedIndexChanged(object sender, System.EventArgs e)
+        public async Task<bool> SaveUserDiagnosis(UserDiagnosis userDiagnosis, string county)
         {
+            try
+            {
+                await _firebase.Child("DIAGNOSIS").PostAsync(userDiagnosis);
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("Failed to Save User Registration", ex.Message);
+                return false;
+            }
 
         }
 
 
+        //Uploading User Diagnosis Image
+        public async Task<string> UploadDiagnosisPhoto(Stream stream, string filename)
+        {
+            await _firebaseStorage
+                .Child("IMAGES").Child(filename).PutAsync(stream);
+            var url = await GetUrl(filename);
 
+            return url;
+        }
+        private async Task<string> GetUrl(string fileName)
+        {
+            return await _firebaseStorage
+                .Child("IMAGES")
+                .Child(fileName)
+                .GetDownloadUrlAsync();
+        }
+        //end
     }
 }

@@ -15,6 +15,14 @@ namespace MmeaAppADC.ViewModels
         }
         private string confidence;
 
+        private string image;
+        public string Image
+        {
+            get { return image; }
+            set { image = value; OnPropertyChanged(); }
+        }
+
+
         public string Confidence
         {
             get { return confidence; }
@@ -45,10 +53,11 @@ namespace MmeaAppADC.ViewModels
 
         public Command ContactVetCommand { get; set; }
 
-        public CropInfoViewModel(ClassificationResult result)
+        public CropInfoViewModel(ClassificationResult result, string imageUrl)
         {
             cropTitle = result.Tag;
             confidence = result.Confidence.ToString();
+            image = imageUrl;
 
             ContactVetCommand = new Command(async () => await ContactVetAsync());
         }

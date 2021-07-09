@@ -31,8 +31,8 @@
                             </Label.FormattedText>
                         </Label>
                         <Frame BorderColor="Green" Margin="30,0">
-                            <Image HeightRequest="70" WidthRequest="60"
-                       Aspect="AspectFill"/>
+                            <Image HeightRequest="100" WidthRequest="100"
+                                Aspect="AspectFill" Source="{Binding Image}"/>
                         </Frame>
                         <Label>
                             <Label.FormattedText>

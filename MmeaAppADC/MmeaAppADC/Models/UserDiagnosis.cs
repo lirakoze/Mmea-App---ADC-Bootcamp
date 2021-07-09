@@ -6,11 +6,12 @@ namespace MmeaAppADC.Models
     {
         private DateTime _diagnosisDate = DateTime.MinValue;
 
-        public string Id { get; set; }
-        public string Description { get; set; }
+        public string UserId { get; set; }
+        public string Tag { get; set; }
+        public double Confidence { get; set; }
+        public string County { get; set; }
+        public string SubCounty { get; set; }
         public string ImageUrl { get; set; }
-        public Guid UserId { get; set; }
-
         public DateTime DiagnosisDate
         {
             get

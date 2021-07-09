@@ -6,6 +6,7 @@
         #region Firebase API Keys
         public static string FirebaseWebAPIKey = "AIzaSyD70VWOBKqUAqXnGkcwmNsDMyusqwPy0DQ";
         public static string FirebaseDatabaseKey = "https://mmeaadc-default-rtdb.firebaseio.com/";
+        public static string FirebaseStorageKey = "mmeaadc.appspot.com";
         #endregion
     }
 }
