@@ -11,7 +11,7 @@
                            HorizontalTextAlignment="Center"/>
                 </StackLayout>
             </Frame>
-            <ScrollView Margin="0,20">
+            <ScrollView Margin="0,20,0,50">
                 <StackLayout>
                     
                     <xct:Expander Margin="10,10">

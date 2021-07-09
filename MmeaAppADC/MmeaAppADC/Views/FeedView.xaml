@@ -4,8 +4,8 @@
              NavigationPage.HasNavigationBar="False"
              x:Class="MmeaAppADC.Views.FeedView">
     <ContentView.Content>
-        <Grid BackgroundColor="White">
-
-        </Grid>
+        <StackLayout>
+            
+        </StackLayout>
     </ContentView.Content>
 </ContentView>

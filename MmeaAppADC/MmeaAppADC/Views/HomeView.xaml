@@ -110,19 +110,20 @@
 		<Grid>
 			<xct:TabView Style="{StaticResource CustomTabStyle}">
 				<xct:TabView.TabStripBackgroundView>
-					<BoxView BackgroundColor="White" WidthRequest="30" CornerRadius="20,20,0,0" />
+					<BoxView BackgroundColor="Green" WidthRequest="35" CornerRadius="20,20,0,0" />
 				</xct:TabView.TabStripBackgroundView>
 
 				<xct:TabViewItem   
 					FontFamily="fontawesome"  
 					Text="Home" 
+					TextColor="White"
 					ControlTemplate="{StaticResource TabItemTemplate}">
 					
 					<xct:TabViewItem.Icon>
-						<FontImageSource Color="LightGray" FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.Home}"/>
+						<FontImageSource Color="White" FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.Home}"/>
 					</xct:TabViewItem.Icon>
 					<xct:TabViewItem.IconSelected>
-						<FontImageSource Color="Green"  FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.Home}"/>
+						<FontImageSource Color="Orange"  FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.Home}"/>
 					</xct:TabViewItem.IconSelected>
 					<pages:FeedView/>
 					
@@ -131,26 +132,25 @@
 				<xct:TabViewItem
 					Text="Diagnose"
 					ControlTemplate="{StaticResource FabTabItemTemplate}"
-					TextColor="#979797"                    
+					TextColor="White"                    
 					TextColorSelected="White">
 					<xct:TabViewItem.Icon>
 						<FontImageSource Color="Orange" FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.CameraControl}"/>
 					</xct:TabViewItem.Icon>
 					<pages:DiagnoseView/>
-				</xct:TabViewItem>
-				
+				</xct:TabViewItem>				
 				
 				<xct:TabViewItem 
-					Text="Notification" 
+					Text="Notifications" 
 					ControlTemplate="{StaticResource TabItemTemplate}"
-					TextColor="#979797"
-					TextColorSelected="Black">
+					TextColor="White"
+					TextColorSelected="White">
 					<xct:TabViewItem.Icon>
-						<FontImageSource Color="#979797"  FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.Message}"/>
+						<FontImageSource Color="White"  FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.Message}"/>
 					</xct:TabViewItem.Icon>
 
 					<xct:TabViewItem.IconSelected>
-						<FontImageSource Color="Green"  FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.Message}"/>
+						<FontImageSource Color="Orange"  FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.Message}"/>
 					</xct:TabViewItem.IconSelected>
 					
 					<pages:NotificationsView/>
