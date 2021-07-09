@@ -32,6 +32,8 @@ namespace MmeaAppADC.ViewModels
             BrowseGalleryCommand = new Command(async () => await BrowseGalleryAsync());
             TakePhotoCommand = new Command(async () => await TakePhotoAsync());
             DiagnoseCommand = new Command(async () => await DiagnoseAsync());
+            PhotoFile = null;
+
         }
 
         private async Task TakePhotoAsync()
@@ -97,7 +99,7 @@ namespace MmeaAppADC.ViewModels
         {
             UserDialogs.Instance.ShowLoading("Diagnosis Underway....");
 
-            if (PhotoFile.OpenReadAsync() == null)
+            if (PhotoFile == null)
             {
                 UserDialogs.Instance.HideLoading();
                 await Application.Current.MainPage.DisplayAlert("Error", "An Image is required for processing.", "Ok");

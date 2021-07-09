@@ -1,20 +1,166 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-            android:TabbedPage.ToolbarPlacement="Bottom" 
-            BarBackgroundColor="Orange"
-            android:TabbedPage.IsSwipePagingEnabled="True"
-            NavigationPage.HasNavigationBar="False"
-            xmlns:pages="clr-namespace:MmeaAppADC.Views"
-            SelectedTabColor="Green"
-            UnselectedTabColor="Black"
-            x:Class="MmeaAppADC.Views.HomeView">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+			 xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+			xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+			android:TabbedPage.ToolbarPlacement="Bottom" 
+			 xmlns:helpers="clr-namespace:MmeaAppADC.Helpers"
+			android:TabbedPage.IsSwipePagingEnabled="True"
+			NavigationPage.HasNavigationBar="False"
+			xmlns:pages="clr-namespace:MmeaAppADC.Views"
+			x:Class="MmeaAppADC.Views.HomeView">
 
-    <pages:FeedView Title="Feed" />
-    <pages:DiagnoseView Title="Diagnose"/>
-    <pages:NotificationsView Title="Notifications"/>
-    <pages:ProfileView Title="Profile"/>
 
-</TabbedPage>
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<ControlTemplate
+				x:Key="TabItemTemplate">
+				<Grid
+					RowSpacing="0">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<Image
+						Grid.Row="0"
+						VerticalOptions="Center"
+						HorizontalOptions="Center"
+						WidthRequest="32"
+						HeightRequest="32"
+						Margin="6"
+						Source="{TemplateBinding CurrentIcon}" />
+					<Label
+						Grid.Row="1"
+						HorizontalOptions="Center"
+						FontSize="{TemplateBinding FontSize}"
+						Text="{TemplateBinding Text}"
+						TextColor="{TemplateBinding CurrentTextColor}" />
+				</Grid>
+			</ControlTemplate>
+
+			<ControlTemplate
+				x:Key="FabTabItemTemplate">
+				<Grid>
+					<ImageButton
+						InputTransparent="True"
+						Source="{TemplateBinding CurrentIcon}"
+						Padding="10"
+						HorizontalOptions="Center"
+						BackgroundColor="White"
+						BorderColor="LightGray"
+						BorderWidth="2"
+						HeightRequest="60"
+						WidthRequest="60"
+						Margin="0,0,0,0">
+						<ImageButton.CornerRadius>
+							<OnPlatform x:TypeArguments="x:Int32">
+								<On Platform="iOS" Value="30"/>
+								<On Platform="Android" Value="60"/>
+								<On Platform="UWP" Value="36"/>
+							</OnPlatform>
+						</ImageButton.CornerRadius>
+						<ImageButton.IsVisible>
+							<OnPlatform x:TypeArguments="x:Boolean">
+								<On Platform="Android, iOS, UWP">True</On>
+								<On Platform="macOS">False</On>
+							</OnPlatform>
+						</ImageButton.IsVisible>
+					</ImageButton>
+					<BoxView  
+						InputTransparent="True"
+						HorizontalOptions="Center"
+						CornerRadius="30"
+						BackgroundColor="#FF0000"
+						HeightRequest="60"
+						WidthRequest="60"
+						Margin="6">
+						<BoxView.IsVisible>
+							<OnPlatform x:TypeArguments="x:Boolean">
+								<On Platform="Android, iOS, UWP">False</On>
+								<On Platform="macOS">True</On>
+							</OnPlatform>
+						</BoxView.IsVisible>
+					</BoxView>
+				</Grid>
+			</ControlTemplate>
+
+			<Style
+				x:Key="CustomTabStyle"
+				TargetType="xct:TabView">
+				<Setter
+					Property="IsTabTransitionEnabled"
+					Value="True" />
+				<Setter
+					Property="TabStripHeight"
+					Value="48" />
+				<Setter
+					Property="TabContentBackgroundColor"
+					Value="#C2C3C3" />
+				<Setter
+					Property="TabStripPlacement"
+					Value="Bottom" />
+			</Style>
+
+
+		</ResourceDictionary>
+	</ContentPage.Resources>
+
+
+	<ContentPage.Content>
+		<Grid>
+			<xct:TabView Style="{StaticResource CustomTabStyle}">
+				<xct:TabView.TabStripBackgroundView>
+					<BoxView BackgroundColor="White" WidthRequest="30" CornerRadius="20,20,0,0" />
+				</xct:TabView.TabStripBackgroundView>
+
+				<xct:TabViewItem   
+					FontFamily="fontawesome"  
+					Text="Home" 
+					ControlTemplate="{StaticResource TabItemTemplate}">
+					
+					<xct:TabViewItem.Icon>
+						<FontImageSource Color="LightGray" FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.Home}"/>
+					</xct:TabViewItem.Icon>
+					<xct:TabViewItem.IconSelected>
+						<FontImageSource Color="Green"  FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.Home}"/>
+					</xct:TabViewItem.IconSelected>
+					<pages:FeedView/>
+					
+				</xct:TabViewItem>
+
+				<xct:TabViewItem
+					Text="Diagnose"
+					ControlTemplate="{StaticResource FabTabItemTemplate}"
+					TextColor="#979797"                    
+					TextColorSelected="White">
+					<xct:TabViewItem.Icon>
+						<FontImageSource Color="Orange" FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.CameraControl}"/>
+					</xct:TabViewItem.Icon>
+					<pages:DiagnoseView/>
+				</xct:TabViewItem>
+				
+				
+				<xct:TabViewItem 
+					Text="Notification" 
+					ControlTemplate="{StaticResource TabItemTemplate}"
+					TextColor="#979797"
+					TextColorSelected="Black">
+					<xct:TabViewItem.Icon>
+						<FontImageSource Color="#979797"  FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.Message}"/>
+					</xct:TabViewItem.Icon>
+
+					<xct:TabViewItem.IconSelected>
+						<FontImageSource Color="Green"  FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.Message}"/>
+					</xct:TabViewItem.IconSelected>
+					
+					<pages:NotificationsView/>
+					
+				</xct:TabViewItem>
+				
+			</xct:TabView>
+		</Grid>
+
+
+	</ContentPage.Content>    
+	
+</ContentPage>

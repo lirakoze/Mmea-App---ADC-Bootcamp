@@ -6,6 +6,7 @@
              xmlns:helpers="clr-namespace:MmeaAppADC.Helpers"
              NavigationPage.HasNavigationBar="False"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    
     <ContentPage.BindingContext>
         <vm:LoginViewModel/>
     </ContentPage.BindingContext>

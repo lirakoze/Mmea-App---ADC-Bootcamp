@@ -5,7 +5,7 @@ using Xamarin.Forms.Xaml;
 namespace MmeaAppADC.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DiagnoseView : ContentPage
+    public partial class DiagnoseView : ContentView
     {
         public DiagnoseView()
         {

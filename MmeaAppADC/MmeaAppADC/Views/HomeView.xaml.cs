@@ -5,7 +5,7 @@ using Xamarin.Forms.Xaml;
 namespace MmeaAppADC.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomeView : TabbedPage
+    public partial class HomeView : ContentPage
     {
         public HomeView()
         {
