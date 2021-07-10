@@ -8,8 +8,16 @@ namespace MmeaAppADC.ViewModels
 {
     public class ContactVetViewModel : BaseViewModel
     {
+        private bool isVisible;
+        public bool IsVisible
+        {
+            get { return isVisible; }
+            set { isVisible = value; OnPropertyChanged(); }
+        }
+
+
         private ObservableCollection<ApplicationUser> vets;
-        public DBservice _dbService;
+        private DBservice _dbService;
         public ObservableCollection<ApplicationUser> Vets
         {
             get { return vets; }
@@ -45,6 +53,7 @@ namespace MmeaAppADC.ViewModels
             };
             _dbService = new DBservice();
             Vets = new ObservableCollection<ApplicationUser>();
+            isVisible = false;
             GetVets();
         }
 
@@ -52,8 +61,15 @@ namespace MmeaAppADC.ViewModels
         {
             var subCounty = Preferences.Get("SubCounty", "");
             List<ApplicationUser> list = await _dbService.GetAgroVets(subCounty);
+            if (list.Count == 0)
+            {
+                isVisible = true;
+                return;
+            }
+
             foreach (var user in list)
             {
+                isVisible = false;
                 Vets.Add(user);
             }
         }

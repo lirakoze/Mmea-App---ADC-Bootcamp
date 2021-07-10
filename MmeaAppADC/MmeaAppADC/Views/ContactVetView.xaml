@@ -17,7 +17,9 @@
                            HorizontalTextAlignment="Center"/>
                 </StackLayout>
             </Frame>
-
+            <Label Text="No Vets Available in this region"
+                   TextColor="Orange" FontSize="36" FontAttributes="Bold"
+                   IsVisible="{Binding IsVisible}"/>
             <ScrollView Margin="10">
                 <StackLayout>
 
