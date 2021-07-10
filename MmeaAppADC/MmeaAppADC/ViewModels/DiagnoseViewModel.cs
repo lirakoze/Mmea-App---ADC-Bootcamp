@@ -127,6 +127,7 @@ namespace MmeaAppADC.ViewModels
 
                 if (isSuccess)
                 {
+                    PhotoFile = null;
                     Image = null;
                     //Navigate to result page
                     await Application.Current.MainPage.Navigation.PushAsync(new CropInfoView(result, url));
