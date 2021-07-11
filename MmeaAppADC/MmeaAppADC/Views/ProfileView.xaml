@@ -32,44 +32,45 @@
                     <Frame Margin="5,5,5,10" CornerRadius="10" HasShadow="True"
                            BorderColor="Orange">
                         <StackLayout>
-                            <Frame CornerRadius="50" Margin="50,0,50,15">
-                                <StackLayout >
-                                    <Image HeightRequest="200" WidthRequest="150"/>
-                                </StackLayout>
-                            </Frame>
+                            <Image HeightRequest="180" WidthRequest="120"
+                                   Aspect="Fill" Margin="50,0"
+                                   Source="{Binding ProfileUrl}"/>
+                              
                             <StackLayout Orientation="Horizontal" HorizontalOptions="Center"
                                          Margin="0,0,0,30">
-                                <Button Text="Take Profile"/>
-                                <Button Text="Upload Profile"/>
+                                <Button Text="Take Profile"
+                                        Command="{Binding TakePhotoCommand}"/>
+                                <Button Text="Upload Profile" Command="{Binding BrowseGalleryCommand}"/>
                             </StackLayout>
 
                             <Button Text="Edit Profile" Margin="50,0,50,15"
-                                    BackgroundColor="Orange" TextColor="White"/>
+                                    BackgroundColor="Orange" TextColor="White"
+                                    Command="{Binding EditProfileCommand}"/>
 
                             <StackLayout Orientation="Horizontal" Padding="10" HorizontalOptions="Center">
-                                <Label Text="Email " FontSize="22" FontAttributes="Bold"/>
-                                <Label Text="{Binding Email}" FontSize="20"/>
+                                <Label Text="Email " FontSize="20" FontAttributes="Bold"/>
+                                <Label Text="{Binding Email}" FontSize="18"/>
                             </StackLayout>                                                               
 
                             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                                 <StackLayout Padding="10">
-                                    <Label Text="Phone Number " FontSize="22" FontAttributes="Bold"/>
-                                    <Label Text="{Binding PhoneNo}" FontSize="20"/>
+                                    <Label Text="Phone Number " FontSize="20" FontAttributes="Bold"/>
+                                    <Label Text="{Binding PhoneNo}" FontSize="18"/>
                                 </StackLayout>
                                 <StackLayout Padding="10">
-                                    <Label Text="Category " FontSize="22" FontAttributes="Bold"/>
-                                    <Label Text="{Binding Type}" FontSize="20"/>
+                                    <Label Text="Category " FontSize="20" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Type}" FontSize="18"/>
                                 </StackLayout>
                             </StackLayout>
 
                             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                                 <StackLayout Padding="10">
-                                    <Label Text="County " FontSize="22" FontAttributes="Bold"/>
-                                    <Label Text="{Binding County}" FontSize="20"/>
+                                    <Label Text="County " FontSize="20" FontAttributes="Bold"/>
+                                    <Label Text="{Binding County}" FontSize="18"/>
                                 </StackLayout>
                                 <StackLayout Padding="10">
-                                    <Label Text="Sub County " FontSize="22" FontAttributes="Bold"/>
-                                    <Label Text="{Binding SubCounty}" FontSize="20"/>
+                                    <Label Text="Sub County " FontSize="20" FontAttributes="Bold"/>
+                                    <Label Text="{Binding SubCounty}" FontSize="18"/>
                                 </StackLayout>
                             </StackLayout>
                                 

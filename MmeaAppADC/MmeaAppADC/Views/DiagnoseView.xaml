@@ -20,7 +20,7 @@
                 <StackLayout>
                     <Frame BorderColor="Green" Margin="20">
                         <Image HeightRequest="250" WidthRequest="250"
-                       Aspect="AspectFill" Source="{Binding Image}"/>
+                       Aspect="Fill" Source="{Binding Image}"/>
                     </Frame>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center"
                          Margin="20">

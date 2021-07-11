@@ -143,6 +143,7 @@ namespace MmeaAppADC.ViewModels
                         PhoneNo = PhoneNo,
                         County = SelectedCounty.Name,
                         SubCounty = SelectedSubCounty.Name,
+                        ProfileImageUrl = "",
                         Type = Type
                     };
                     //Auth service

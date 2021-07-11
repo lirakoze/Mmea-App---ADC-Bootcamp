@@ -1,5 +1,8 @@
 ﻿using MmeaAppADC.Services;
 using MmeaAppADC.Views;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -39,6 +42,12 @@ namespace MmeaAppADC.ViewModels
             set { subCounty = value; OnPropertyChanged(); }
         }
 
+        private string profileUrl;
+        public string ProfileUrl
+        {
+            get { return profileUrl; }
+            set { profileUrl = value; OnPropertyChanged(); }
+        }
         public string Type
         {
             get { return type; }
@@ -50,22 +59,95 @@ namespace MmeaAppADC.ViewModels
             get { return phoneno; }
             set { phoneno = value; OnPropertyChanged(); }
         }
-
+        private FileResult PhotoFile { get; set; }
+        public Command BrowseGalleryCommand { get; set; }
+        public Command TakePhotoCommand { get; set; }
         public Command LogoutCommand { get; set; }
+        public Command EditProfileCommand { get; set; }
         private AuthService _auth;
         public ProfileViewModel()
         {
             LogoutCommand = new Command(() => LogoutAsync());
+            BrowseGalleryCommand = new Command(async () => await BrowseGalleryAsync());
+            TakePhotoCommand = new Command(async () => await TakePhotoAsync());
+            EditProfileCommand = new Command(async () => await EditProfileAsync());
             _auth = new AuthService();
+            PhotoFile = null;
             Firstname = Preferences.Get("Firstname", "");
             Lastname = Preferences.Get("Lastname", "");
             Email = Preferences.Get("Email", "");
             PhoneNo = Preferences.Get("PhoneNo", "");
             County = Preferences.Get("County", "");
             SubCounty = Preferences.Get("SubCounty", "");
+            ProfileUrl = Preferences.Get("ProfileUrl", "");
             Type = Preferences.Get("Type", "");
+            PhotoFile = null;
         }
 
+        private async Task EditProfileAsync()
+        {
+            await Application.Current.MainPage.Navigation.PushModalAsync(new EditProfileView());
+        }
+
+        private async Task TakePhotoAsync()
+        {
+            try
+            {
+                var photo = await MediaPicker.CapturePhotoAsync();
+                await LoadPhotoAsync(photo);
+                Console.WriteLine($"CapturePhotoAsync COMPLETED: {ProfileUrl}");
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                Console.WriteLine($"CapturePhotoAsync THREW: {fnsEx.Message}");
+            }
+            catch (PermissionException pEx)
+            {
+                Console.WriteLine($"CapturePhotoAsync THREW: {pEx.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"CapturePhotoAsync THREW: {ex.Message}");
+            }
+        }
+        private async Task BrowseGalleryAsync()
+        {
+            try
+            {
+                var photo = await MediaPicker.PickPhotoAsync();
+                await LoadPhotoAsync(photo);
+                Console.WriteLine($"CapturePhotoAsync COMPLETED: {ProfileUrl}");
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                Console.WriteLine($"CapturePhotoAsync THREW: {fnsEx.Message}");
+            }
+            catch (PermissionException pEx)
+            {
+                Console.WriteLine($"CapturePhotoAsync THREW: {pEx.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"CapturePhotoAsync THREW: {ex.Message}");
+            }
+        }
+        private async Task LoadPhotoAsync(FileResult photo)
+        {
+            // canceled
+            if (photo == null)
+            {
+                ProfileUrl = null;
+                PhotoFile = null;
+                return;
+            }
+            PhotoFile = photo;
+            // save the file into local storage
+            var newFile = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+            using (var stream = await photo.OpenReadAsync())
+            using (var newStream = File.OpenWrite(newFile))
+                await stream.CopyToAsync(newStream);
+            ProfileUrl = newFile;
+        }
         private void LogoutAsync()
         {
             _auth.LogoutUser();

@@ -68,6 +68,7 @@ namespace MmeaAppADC.Services
                 Preferences.Set("SubCounty", userInfo.SubCounty);
                 Preferences.Set("Email", userInfo.Email);
                 Preferences.Set("PhoneNo", userInfo.PhoneNo);
+                Preferences.Set("ProfileUrl", "");
                 Preferences.Set("Type", userInfo.Type);
 
                 return true;
@@ -125,6 +126,7 @@ namespace MmeaAppADC.Services
                 County = u.Object.County,
                 SubCounty = u.Object.SubCounty,
                 PhoneNo = u.Object.PhoneNo,
+                ProfileImageUrl = u.Object.ProfileImageUrl,
                 Type = u.Object.Type
             }).ToList();
         }

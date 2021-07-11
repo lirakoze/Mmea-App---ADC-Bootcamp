@@ -25,8 +25,8 @@
 						Grid.Row="0"
 						VerticalOptions="Center"
 						HorizontalOptions="Center"
-						WidthRequest="32"
-						HeightRequest="32"
+						WidthRequest="24"
+						HeightRequest="24"
 						Margin="6"
 						Source="{TemplateBinding CurrentIcon}" />
 					<Label
@@ -110,7 +110,7 @@
 		<Grid>
 			<xct:TabView Style="{StaticResource CustomTabStyle}">
 				<xct:TabView.TabStripBackgroundView>
-					<BoxView BackgroundColor="Green" WidthRequest="35" CornerRadius="20,20,0,0" />
+					<BoxView BackgroundColor="Green" WidthRequest="35" CornerRadius="20,20,0,0"/>
 				</xct:TabView.TabStripBackgroundView>
 
 				<xct:TabViewItem   

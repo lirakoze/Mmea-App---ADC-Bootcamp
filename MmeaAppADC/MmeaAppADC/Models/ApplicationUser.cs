@@ -13,5 +13,6 @@
         public string County { get; set; }
         public string SubCounty { get; set; }
         public string Type { get; set; }
+        public string ProfileImageUrl { get; set; }
     }
 }

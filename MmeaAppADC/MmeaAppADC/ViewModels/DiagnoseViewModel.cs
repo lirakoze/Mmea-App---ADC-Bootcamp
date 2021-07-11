@@ -33,7 +33,6 @@ namespace MmeaAppADC.ViewModels
             TakePhotoCommand = new Command(async () => await TakePhotoAsync());
             DiagnoseCommand = new Command(async () => await DiagnoseAsync());
             PhotoFile = null;
-
         }
 
         private async Task TakePhotoAsync()
