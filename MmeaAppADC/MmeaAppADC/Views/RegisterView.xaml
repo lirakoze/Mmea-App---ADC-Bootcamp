@@ -14,7 +14,8 @@
                    TextColor="Green" HorizontalTextAlignment="Center"
                    Margin="0,20,0,40"/>
             <ScrollView Margin="0,0,0,30">
-                <Frame CornerRadius="5" Margin="20,0,20,30">
+                <Frame CornerRadius="5" Margin="20,0,20,30"
+                       BorderColor="Orange" HasShadow="True">
                     <StackLayout>
                         <Label Text="Create Account" FontSize="30" FontAttributes="Bold"
                                TextColor="Green"
@@ -43,10 +44,18 @@
                         </Picker>
                         <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
                         <Entry Placeholder="Confirm Password" IsPassword="True" Text="{Binding ConfirmPassword}"/>
-                        
+                        <StackLayout Orientation="Horizontal" Margin="0,20,0,0">
+                            <CheckBox Color="Orange" HeightRequest="32" WidthRequest="32"
+                                      Margin="0,0,5,0" IsChecked="{Binding IsChecked}"/>
+                            <Label Text="I have read the terms and conditions and I agree"
+                                   VerticalOptions="Center"
+                                    FontSize="16"/>
+                        </StackLayout>
+
                         <Button Text="Register" TextColor="White" BackgroundColor="Green"
                                 Margin="30,40,30,0" CornerRadius="5"
-                                Command="{Binding RegisterCommand}"/>
+                                Command="{Binding RegisterCommand}"
+                                IsEnabled="{Binding IsChecked}"/>
                         <StackLayout Orientation="Horizontal" Margin="20"
                                      HorizontalOptions="Center">
                             <Label Text="Already Have Account?" FontSize="16"/>

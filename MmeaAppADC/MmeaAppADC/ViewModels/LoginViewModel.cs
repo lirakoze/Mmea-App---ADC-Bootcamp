@@ -53,7 +53,7 @@ namespace MmeaAppADC.ViewModels
             else
             {
                 UserDialogs.Instance.HideLoading();
-                await Application.Current.MainPage.DisplayAlert("Failed", "Incorrect /Username or Password", "Ok");
+                await Application.Current.MainPage.DisplayAlert("Failed", "Incorrect Username or Password", "Ok");
                 return;
                 //await Application.Current.MainPage.Navigation.PushAsync(new HomeView());
 

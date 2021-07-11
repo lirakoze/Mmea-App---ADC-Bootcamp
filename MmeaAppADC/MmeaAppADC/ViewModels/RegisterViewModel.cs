@@ -66,6 +66,13 @@ namespace MmeaAppADC.ViewModels
             get { return phoneno; }
             set { phoneno = value; OnPropertyChanged(); }
         }
+        private bool isChecked;
+        public bool IsChecked
+        {
+            get { return isChecked; }
+            set { isChecked = value; OnPropertyChanged(); }
+        }
+
 
         public ObservableCollection<County> Counties { get; set; }
         public ObservableCollection<SubCounty> SubCounties { get; set; }
@@ -81,7 +88,7 @@ namespace MmeaAppADC.ViewModels
                 if (selectedCounty != value)
                 {
                     selectedCounty = value; OnPropertyChanged();
-                    GetSubCounties();
+                    _ = GetSubCounties();
                 }
             }
         }
@@ -101,6 +108,7 @@ namespace MmeaAppADC.ViewModels
             Counties = new ObservableCollection<County>();
             SubCounties = new ObservableCollection<SubCounty>();
             IsVisible = false;
+            IsChecked = false;
             GetCounties();
         }
 
@@ -109,36 +117,46 @@ namespace MmeaAppADC.ViewModels
             UserDialogs.Instance.ShowLoading("Loading...");
             try
             {
-                if (!Password.Equals(ConfirmPassword) || password == null || confirmPassword == null)
+                var isvalid = isInputsValid();
+                if (isvalid)
                 {
-                    //await Application.Current.MainPage.DisplayAlert("Register", "Password don't match. try again", "Okay");
-                    UserDialogs.Instance.HideLoading();
-                    UserDialogs.Instance.Alert("Password don't match. try again", "Registration", "Okay");
-                    return;
+                    if (!Password.Equals(ConfirmPassword) || password == null || confirmPassword == null)
+                    {
+                        UserDialogs.Instance.HideLoading();
+                        UserDialogs.Instance.Alert("Password don't match. try again", "Registration", "Okay");
+                        return;
+                    }
+                    else
+                    {
+                        var user = new ApplicationUser
+                        {
+                            FirstName = Firstname,
+                            LastName = Lastname,
+                            Email = Email,
+                            PhoneNo = PhoneNo,
+                            County = SelectedCounty.Name,
+                            SubCounty = SubCounty,
+                            Type = Type
+                        };
+                        //Auth service
+                        await _authService.RegisterUser(user, Password);
+                        UserDialogs.Instance.HideLoading();
+                        UserDialogs.Instance.Alert("Registration is successful", "Registration", "Okay");
+                        //Navigate to login
+                        //await Application.Current.MainPage.Navigation.PushAsync(new LoginView());
+                        Application.Current.MainPage = new NavigationPage(new LoginView());
+                    }
                 }
-
-                var user = new ApplicationUser
-                {
-                    FirstName = Firstname,
-                    LastName = Lastname,
-                    Email = Email,
-                    PhoneNo = PhoneNo,
-                    County = SelectedCounty.Name,
-                    SubCounty = SubCounty,
-                    Type = Type
-                };
-                //Auth service
-                await _authService.RegisterUser(user, Password);
                 UserDialogs.Instance.HideLoading();
-                UserDialogs.Instance.Alert("Registration is successful", "Registration", "Okay");
-                //Navigate to login
-                //await Application.Current.MainPage.Navigation.PushAsync(new LoginView());
-                Application.Current.MainPage = new NavigationPage(new LoginView());
+                UserDialogs.Instance.Alert("Please, Fill in the required information", "Error", "Okay");
+                return;
+
             }
             catch (Exception ex)
             {
                 UserDialogs.Instance.HideLoading();
                 UserDialogs.Instance.Alert("Please, Provide the required Information", "Registration", "Okay");
+                Console.WriteLine("Error", ex.Message);
 
             }
 
@@ -175,5 +193,18 @@ namespace MmeaAppADC.ViewModels
 
         }
 
+        private bool isInputsValid()
+        {
+            if (Firstname == null || Lastname == null)
+                return false;
+            if (Email == null || PhoneNo == null)
+                return false;
+            if (SelectedCounty == null || SubCounty == null)
+                return false;
+            if (Password == null || ConfirmPassword == null)
+                return false;
+            else
+                return true;
+        }
     }
 }

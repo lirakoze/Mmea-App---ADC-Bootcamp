@@ -15,14 +15,15 @@
         <StackLayout xct:SafeAreaEffect.SafeArea="true">
             <Label Text="Mmea" FontSize="40" FontAttributes="Bold"
                    TextColor="Green" HorizontalTextAlignment="Center"
-                   Margin="0,20,0,50"/>
+                   Margin="0,50,0,50"/>
             <ScrollView  Margin="0,40,0,0">
-                <Frame CornerRadius="5" Margin="20,0,20,40" HasShadow="True">
+                <Frame CornerRadius="5" Margin="20,40,20,40" HasShadow="True"
+                       BorderColor="Orange" >
                     <StackLayout>
                         <Label Text="Login" FontSize="30" FontAttributes="Bold"
                                TextColor="Green"
                                Padding="0,15,15,15"/>
-                        <Entry Placeholder="Username" Text="{Binding Username}"/>
+                        <Entry Placeholder="Email" Text="{Binding Username}"/>
                         <Entry Placeholder="Password" IsPassword="True"
                                Text="{Binding Password}"/>
                         <Button Text="Login" TextColor="White" BackgroundColor="Green"
