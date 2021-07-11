@@ -128,7 +128,6 @@
 					<pages:FeedView/>
 					
 				</xct:TabViewItem>
-
 				<xct:TabViewItem
 					Text="Diagnose"
 					ControlTemplate="{StaticResource FabTabItemTemplate}"
@@ -138,22 +137,31 @@
 						<FontImageSource Color="Orange" FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.CameraControl}"/>
 					</xct:TabViewItem.Icon>
 					<pages:DiagnoseView/>
-				</xct:TabViewItem>				
-				
+				</xct:TabViewItem>
+				<xct:TabViewItem
+					Text="Notifications"
+					ControlTemplate="{StaticResource FabTabItemTemplate}"
+					TextColor="White"                    
+					TextColorSelected="White">
+					<xct:TabViewItem.Icon>
+						<FontImageSource Color="Orange" FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.MessageAlert}"/>
+					</xct:TabViewItem.Icon>
+					<pages:NotificationsView/>
+				</xct:TabViewItem>
 				<xct:TabViewItem 
-					Text="Notifications" 
+					Text="Profile" 
 					ControlTemplate="{StaticResource TabItemTemplate}"
 					TextColor="White"
 					TextColorSelected="White">
 					<xct:TabViewItem.Icon>
-						<FontImageSource Color="White"  FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.Message}"/>
+						<FontImageSource Color="White"  FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.FaceProfile}"/>
 					</xct:TabViewItem.Icon>
 
 					<xct:TabViewItem.IconSelected>
-						<FontImageSource Color="Orange"  FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.Message}"/>
+						<FontImageSource Color="Orange"  FontFamily="fontawesome"  Glyph="{x:Static helpers:IconFont.FaceProfile}"/>
 					</xct:TabViewItem.IconSelected>
 					
-					<pages:NotificationsView/>
+					<pages:ProfileView/>
 					
 				</xct:TabViewItem>
 				

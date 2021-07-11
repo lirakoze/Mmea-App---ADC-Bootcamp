@@ -41,12 +41,7 @@ namespace MmeaAppADC.ViewModels
             get { return confirmPassword; }
             set { confirmPassword = value; OnPropertyChanged(); }
         }
-        private string subCounty;
-        public string SubCounty
-        {
-            get { return subCounty; }
-            set { subCounty = value; OnPropertyChanged(); }
-        }
+
         private string type;
         public string Type
         {
@@ -54,6 +49,12 @@ namespace MmeaAppADC.ViewModels
             set { type = value; OnPropertyChanged(); }
         }
         private string phoneno;
+        public string PhoneNo
+        {
+            get { return phoneno; }
+            set { phoneno = value; OnPropertyChanged(); }
+        }
+
 
         private bool isVisible;
         public bool IsVisible
@@ -61,21 +62,12 @@ namespace MmeaAppADC.ViewModels
             get { return isVisible; }
             set { isVisible = value; OnPropertyChanged(); }
         }
-        public string PhoneNo
-        {
-            get { return phoneno; }
-            set { phoneno = value; OnPropertyChanged(); }
-        }
         private bool isChecked;
         public bool IsChecked
         {
             get { return isChecked; }
             set { isChecked = value; OnPropertyChanged(); }
         }
-
-
-        public ObservableCollection<County> Counties { get; set; }
-        public ObservableCollection<SubCounty> SubCounties { get; set; }
         private County selectedCounty;
         public County SelectedCounty
         {
@@ -92,7 +84,25 @@ namespace MmeaAppADC.ViewModels
                 }
             }
         }
+        private SubCounty selectedSubCounty;
+        public SubCounty SelectedSubCounty
+        {
+            get
+            {
+                return selectedSubCounty;
+            }
+            set
+            {
+                if (selectedSubCounty != value)
+                {
+                    selectedSubCounty = value; OnPropertyChanged();
+                }
+            }
+        }
 
+
+        public ObservableCollection<County> Counties { get; set; }
+        public ObservableCollection<SubCounty> SubCounties { get; set; }
 
         public Command LoginCommand { get; set; }
         public Command RegisterCommand { get; set; }
@@ -117,39 +127,32 @@ namespace MmeaAppADC.ViewModels
             UserDialogs.Instance.ShowLoading("Loading...");
             try
             {
-                var isvalid = isInputsValid();
-                if (isvalid)
+                if (!Password.Equals(ConfirmPassword) || password == null || confirmPassword == null)
                 {
-                    if (!Password.Equals(ConfirmPassword) || password == null || confirmPassword == null)
-                    {
-                        UserDialogs.Instance.HideLoading();
-                        UserDialogs.Instance.Alert("Password don't match. try again", "Registration", "Okay");
-                        return;
-                    }
-                    else
-                    {
-                        var user = new ApplicationUser
-                        {
-                            FirstName = Firstname,
-                            LastName = Lastname,
-                            Email = Email,
-                            PhoneNo = PhoneNo,
-                            County = SelectedCounty.Name,
-                            SubCounty = SubCounty,
-                            Type = Type
-                        };
-                        //Auth service
-                        await _authService.RegisterUser(user, Password);
-                        UserDialogs.Instance.HideLoading();
-                        UserDialogs.Instance.Alert("Registration is successful", "Registration", "Okay");
-                        //Navigate to login
-                        //await Application.Current.MainPage.Navigation.PushAsync(new LoginView());
-                        Application.Current.MainPage = new NavigationPage(new LoginView());
-                    }
+                    UserDialogs.Instance.HideLoading();
+                    UserDialogs.Instance.Alert("Password don't match. try again", "Registration", "Okay");
+                    return;
                 }
-                UserDialogs.Instance.HideLoading();
-                UserDialogs.Instance.Alert("Please, Fill in the required information", "Error", "Okay");
-                return;
+                else
+                {
+                    var user = new ApplicationUser
+                    {
+                        FirstName = Firstname,
+                        LastName = Lastname,
+                        Email = Email,
+                        PhoneNo = PhoneNo,
+                        County = SelectedCounty.Name,
+                        SubCounty = SelectedSubCounty.Name,
+                        Type = Type
+                    };
+                    //Auth service
+                    await _authService.RegisterUser(user, Password);
+                    UserDialogs.Instance.HideLoading();
+                    UserDialogs.Instance.Alert("Registration is successful", "Registration", "Okay");
+                    //Navigate to login
+                    //await Application.Current.MainPage.Navigation.PushAsync(new LoginView());
+                    Application.Current.MainPage = new NavigationPage(new LoginView());
+                }
 
             }
             catch (Exception ex)
@@ -193,18 +196,6 @@ namespace MmeaAppADC.ViewModels
 
         }
 
-        private bool isInputsValid()
-        {
-            if (Firstname == null || Lastname == null)
-                return false;
-            if (Email == null || PhoneNo == null)
-                return false;
-            if (SelectedCounty == null || SubCounty == null)
-                return false;
-            if (Password == null || ConfirmPassword == null)
-                return false;
-            else
-                return true;
-        }
+
     }
 }

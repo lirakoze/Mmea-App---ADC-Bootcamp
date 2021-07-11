@@ -62,6 +62,8 @@ namespace MmeaAppADC.Services
 
                 Preferences.Set("MyFirebaseFreshToken", serializedContent);
                 Preferences.Set("UserId", uid);
+                Preferences.Set("Firstname", userInfo.FirstName);
+                Preferences.Set("Lastname", userInfo.LastName);
                 Preferences.Set("County", userInfo.County);
                 Preferences.Set("SubCounty", userInfo.SubCounty);
                 Preferences.Set("Email", userInfo.Email);
@@ -119,6 +121,7 @@ namespace MmeaAppADC.Services
                 Id = u.Object.Id,
                 FirstName = u.Object.FirstName,
                 LastName = u.Object.LastName,
+                Email = u.Object.Email,
                 County = u.Object.County,
                 SubCounty = u.Object.SubCounty,
                 PhoneNo = u.Object.PhoneNo,

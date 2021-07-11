@@ -5,7 +5,7 @@ using Xamarin.Forms.Xaml;
 namespace MmeaAppADC.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ProfileView : ContentPage
+    public partial class ProfileView : ContentView
     {
         public ProfileView()
         {

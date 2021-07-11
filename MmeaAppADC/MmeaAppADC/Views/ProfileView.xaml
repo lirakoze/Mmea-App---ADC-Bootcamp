@@ -1,24 +1,87 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar="False"
+             xmlns:helpers="clr-namespace:MmeaAppADC.Helpers"
              xmlns:vm="clr-namespace:MmeaAppADC.ViewModels"
              x:Class="MmeaAppADC.Views.ProfileView">
 
-    <ContentPage.BindingContext>
+    <ContentView.BindingContext>
         <vm:ProfileViewModel/>
-    </ContentPage.BindingContext>
-    <ContentPage.Content>
+    </ContentView.BindingContext>
+    <ContentView.Content>
         <StackLayout>
-            <Frame BackgroundColor="Green" HeightRequest="20">
+            <Frame BackgroundColor="Green" HeightRequest="26">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Label Text="Profile" TextColor="White" FontSize="18"
-                           HorizontalTextAlignment="Center"/>
+                    <Label TextColor="White" FontSize="20">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <FormattedString.Spans>
+                                    <Span Text="{Binding Firstname}"/>
+                                    <Span Text="  "/>
+                                    <Span Text="{Binding Lastname}"/>
+                                </FormattedString.Spans>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
                 </StackLayout>
             </Frame>
+            <ScrollView Margin="0,0,0,80">
+                <StackLayout>
 
-            <Button Text="Logout" TextColor="White" BackgroundColor="Orange"
-                    Command="{Binding LogoutCommand }"/>
+                    <Frame Margin="5,5,5,10" CornerRadius="10" HasShadow="True"
+                           BorderColor="Orange">
+                        <StackLayout>
+                            <Frame CornerRadius="50" Margin="50,0,50,15">
+                                <StackLayout >
+                                    <Image HeightRequest="200" WidthRequest="150"/>
+                                </StackLayout>
+                            </Frame>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center"
+                                         Margin="0,0,0,30">
+                                <Button Text="Take Profile"/>
+                                <Button Text="Upload Profile"/>
+                            </StackLayout>
+
+                            <Button Text="Edit Profile" Margin="50,0,50,15"
+                                    BackgroundColor="Orange" TextColor="White"/>
+
+                            <StackLayout Orientation="Horizontal" Padding="10" HorizontalOptions="Center">
+                                <Label Text="Email " FontSize="22" FontAttributes="Bold"/>
+                                <Label Text="{Binding Email}" FontSize="20"/>
+                            </StackLayout>                                                               
+
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                <StackLayout Padding="10">
+                                    <Label Text="Phone Number " FontSize="22" FontAttributes="Bold"/>
+                                    <Label Text="{Binding PhoneNo}" FontSize="20"/>
+                                </StackLayout>
+                                <StackLayout Padding="10">
+                                    <Label Text="Category " FontSize="22" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Type}" FontSize="20"/>
+                                </StackLayout>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                <StackLayout Padding="10">
+                                    <Label Text="County " FontSize="22" FontAttributes="Bold"/>
+                                    <Label Text="{Binding County}" FontSize="20"/>
+                                </StackLayout>
+                                <StackLayout Padding="10">
+                                    <Label Text="Sub County " FontSize="22" FontAttributes="Bold"/>
+                                    <Label Text="{Binding SubCounty}" FontSize="20"/>
+                                </StackLayout>
+                            </StackLayout>
+                                
+                                 
+                            
+                        </StackLayout>
+                    </Frame>
+
+                    <Button Text="Logout" TextColor="White" BackgroundColor="Orange"
+                    Command="{Binding LogoutCommand }" Margin="150,15" CornerRadius="10"/>
+                </StackLayout>
+            </ScrollView>
         </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+    </ContentView.Content>
+</ContentView>
