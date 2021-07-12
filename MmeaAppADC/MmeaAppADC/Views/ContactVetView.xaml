@@ -26,7 +26,7 @@
                             <DataTemplate>
                                 <StackLayout Orientation="Horizontal">
                                     <Frame HeightRequest="100" WidthRequest="200"
-                                           Margin="10,0,0,20">
+                                           Margin="10,0,0,20" Padding="10">
                                         <StackLayout>
                                             <Label FontAttributes="Bold" FontSize="20">
                                                 <Label.FormattedText>

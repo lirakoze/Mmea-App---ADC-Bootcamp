@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar="False"
              xmlns:helpers="clr-namespace:MmeaAppADC.Helpers"
-             xmlns:vm="clr-namespace:MmeaAppADC.ViewModels"
+             xmlns:vm="clr-namespace:MmeaAppADC.ViewModels" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="MmeaAppADC.Views.ProfileView">
 
     <ContentView.BindingContext>
@@ -13,39 +13,32 @@
         <StackLayout>
             <Frame BackgroundColor="Green" HeightRequest="26">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Label TextColor="White" FontSize="20">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <FormattedString.Spans>
-                                    <Span Text="{Binding Firstname}"/>
-                                    <Span Text="  "/>
-                                    <Span Text="{Binding Lastname}"/>
-                                </FormattedString.Spans>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+                    <Label Text="Profile Info" TextColor="White" FontSize="20"/>
                 </StackLayout>
             </Frame>
-            <ScrollView Margin="0,0,0,80">
+            <ScrollView Margin="0,0,0,20">
                 <StackLayout>
-
-                    <Frame Margin="5,5,5,10" CornerRadius="10" HasShadow="True"
-                           BorderColor="Orange">
+                    
                         <StackLayout>
                             <Image HeightRequest="180" WidthRequest="120"
                                    Aspect="Fill" Margin="50,0"
-                                   Source="{Binding ProfileUrl}"/>
-                              
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center"
-                                         Margin="0,0,0,30">
-                                <Button Text="Take Profile"
-                                        Command="{Binding TakePhotoCommand}"/>
-                                <Button Text="Upload Profile" Command="{Binding BrowseGalleryCommand}"/>
-                            </StackLayout>
+                                   Source="user.png"/>
 
-                            <Button Text="Edit Profile" Margin="50,0,50,15"
-                                    BackgroundColor="Orange" TextColor="White"
-                                    Command="{Binding EditProfileCommand}"/>
+                            <StackLayout Margin="50,0,50,15"
+                                    BackgroundColor="Orange" Padding="15">
+                                <Label TextColor="White" HorizontalOptions="Center"
+                                       FontSize="20">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <FormattedString.Spans>
+                                                <Span Text="{Binding Firstname}"/>
+                                                <Span Text="  "/>
+                                                <Span Text="{Binding Lastname}"/>
+                                            </FormattedString.Spans>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
 
                             <StackLayout Orientation="Horizontal" Padding="10" HorizontalOptions="Center">
                                 <Label Text="Email " FontSize="20" FontAttributes="Bold"/>
@@ -73,11 +66,56 @@
                                     <Label Text="{Binding SubCounty}" FontSize="18"/>
                                 </StackLayout>
                             </StackLayout>
-                                
-                                 
-                            
+                                                     
                         </StackLayout>
-                    </Frame>
+                    
+
+                        <Button TextColor="White"
+                                BackgroundColor="Orange" Text="View Diagnosis History"
+                                Margin="50,0" Padding="10"/>
+                   
+
+                    <CollectionView ItemsSource="{Binding Diagnoses}" Margin="0,20,0,0">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout >
+                                    <xct:Expander Margin="10,10">
+                                        <xct:Expander.Header>
+                                            <Frame>
+                                                <Label Text="{Binding DiagnosisDate}" FontAttributes="Bold"
+                                                        FontSize="Medium" TextColor="Green" />
+                                            </Frame>
+                                        </xct:Expander.Header>
+                                        <Frame BorderColor="Red">
+                                            <StackLayout>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="Status" FontSize="18" Margin="0,0,20,0"/>
+                                                    <Label Text="{Binding Tag}" FontSize="18"/>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="Confidence" FontSize="18" Margin="0,0,20,0"/>
+                                                    <Label FontSize="18">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <FormattedString.Spans>
+                                                                    <Span Text="{Binding Confidence}"/>
+                                                                    <Span Text=" %"/>
+                                                                </FormattedString.Spans>
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="SubCounty" FontSize="18" Margin="0,0,20,0"/>
+                                                    <Label Text="{Binding SubCounty}" FontSize="18"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </Frame>
+                                    </xct:Expander>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
                     <Button Text="Logout" TextColor="White" BackgroundColor="Orange"
                     Command="{Binding LogoutCommand }" Margin="150,15" CornerRadius="10"/>

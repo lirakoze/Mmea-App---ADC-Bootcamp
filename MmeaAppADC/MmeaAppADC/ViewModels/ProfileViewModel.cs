@@ -1,6 +1,9 @@
-﻿using MmeaAppADC.Services;
+﻿using MmeaAppADC.Models;
+using MmeaAppADC.Services;
 using MmeaAppADC.Views;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -54,6 +57,7 @@ namespace MmeaAppADC.ViewModels
             set { type = value; OnPropertyChanged(); }
         }
         private string phoneno;
+
         public string PhoneNo
         {
             get { return phoneno; }
@@ -65,14 +69,23 @@ namespace MmeaAppADC.ViewModels
         public Command LogoutCommand { get; set; }
         public Command EditProfileCommand { get; set; }
         private AuthService _auth;
+        private DBservice _dbService;
+        private ObservableCollection<UserDiagnosis> diagnoses;
+        public ObservableCollection<UserDiagnosis> Diagnoses
+        {
+            get { return diagnoses; }
+            set { diagnoses = value; OnPropertyChanged(); }
+        }
         public ProfileViewModel()
         {
             LogoutCommand = new Command(() => LogoutAsync());
             BrowseGalleryCommand = new Command(async () => await BrowseGalleryAsync());
             TakePhotoCommand = new Command(async () => await TakePhotoAsync());
-            EditProfileCommand = new Command(async () => await EditProfileAsync());
             _auth = new AuthService();
+            _dbService = new DBservice();
             PhotoFile = null;
+            Diagnoses = new ObservableCollection<UserDiagnosis>();
+            GetDiagnoses();
             Firstname = Preferences.Get("Firstname", "");
             Lastname = Preferences.Get("Lastname", "");
             Email = Preferences.Get("Email", "");
@@ -84,10 +97,6 @@ namespace MmeaAppADC.ViewModels
             PhotoFile = null;
         }
 
-        private async Task EditProfileAsync()
-        {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new EditProfileView());
-        }
 
         private async Task TakePhotoAsync()
         {
@@ -152,6 +161,14 @@ namespace MmeaAppADC.ViewModels
         {
             _auth.LogoutUser();
             Application.Current.MainPage = new LoginView();
+        }
+        private async void GetDiagnoses()
+        {
+            List<UserDiagnosis> list = await _dbService.GetUserDiagnosis();
+            foreach (var user in list)
+            {
+                Diagnoses.Add(user);
+            }
         }
     }
 }

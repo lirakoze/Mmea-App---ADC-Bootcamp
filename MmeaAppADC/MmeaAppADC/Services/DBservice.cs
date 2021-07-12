@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace MmeaAppADC.Services
 {
@@ -103,5 +104,20 @@ namespace MmeaAppADC.Services
                 .GetDownloadUrlAsync();
         }
         //end
+
+        public async Task<List<UserDiagnosis>> GetUserDiagnosis()
+        {
+            var id = Preferences.Get("UserId", "");
+            List<UserDiagnosis> list = new List<UserDiagnosis>();
+            list = (await _firebase.Child("DIAGNOSIS").OnceAsync<UserDiagnosis>()).Select(diag => new UserDiagnosis
+            {
+                DiagnosisDate = diag.Object.DiagnosisDate,
+                Tag = diag.Object.Tag,
+                Confidence = diag.Object.Confidence,
+                UserId = diag.Object.UserId,
+                SubCounty = diag.Object.SubCounty,
+            }).Where(diag => diag.UserId == id).ToList();
+            return list;
+        }
     }
 }

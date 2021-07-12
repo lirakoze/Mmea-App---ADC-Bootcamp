@@ -9,7 +9,7 @@ namespace MmeaAppADC
         public App()
         {
             InitializeComponent();
-            //Preferences.Clear();
+           // Preferences.Clear();
             if (!string.IsNullOrEmpty(Preferences.Get("UserId", "")))
             {
                 MainPage = new NavigationPage(new HomeView());
