@@ -22,6 +22,7 @@ namespace MmeaAppADC.Services
             _firebaseStorage = new FirebaseStorage(KeysAndUrls.FirebaseStorageKey);
         }
 
+        //Getting Counties
         public async Task<List<County>> GetCounties()
         {
             var list = new List<County>();
@@ -105,6 +106,7 @@ namespace MmeaAppADC.Services
         }
         //end
 
+        //Getting user diagnosis
         public async Task<List<UserDiagnosis>> GetUserDiagnosis()
         {
             var id = Preferences.Get("UserId", "");

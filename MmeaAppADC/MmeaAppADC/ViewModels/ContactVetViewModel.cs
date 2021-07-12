@@ -2,7 +2,9 @@
 using MmeaAppADC.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace MmeaAppADC.ViewModels
 {
@@ -16,11 +18,32 @@ namespace MmeaAppADC.ViewModels
             set { vets = value; OnPropertyChanged(); }
         }
 
+        private ApplicationUser selectedVet;
+        public ApplicationUser SelectedVet
+        {
+            get { return selectedVet; }
+            set
+            {
+                if (selectedVet != value)
+                {
+                    selectedVet = value; OnPropertyChanged();
+                }
+            }
+        }
+        public Command SendMessageCommand { get; set; }
+
+
         public ContactVetViewModel()
         {
             _dbService = new DBservice();
             Vets = new ObservableCollection<ApplicationUser>();
             GetVets();
+            SendMessageCommand = new Command(async () => await SendMessageAsync());
+        }
+
+        private async Task SendMessageAsync()
+        {
+
         }
 
         private async void GetVets()

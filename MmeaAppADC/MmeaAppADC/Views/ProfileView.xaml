@@ -67,56 +67,13 @@
                                 </StackLayout>
                             </StackLayout>
                                                      
-                        </StackLayout>
-                    
+                        </StackLayout>                    
 
-                        <Button TextColor="White"
+                        <Button TextColor="White" CornerRadius="10"
                                 BackgroundColor="Orange" Text="View Diagnosis History"
-                                Margin="50,0" Padding="10"/>
-                   
+                                Margin="50,40" Padding="10" Command="{Binding DiagnosisHistoryCommand}"/>                  
 
-                    <CollectionView ItemsSource="{Binding Diagnoses}" Margin="0,20,0,0">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout >
-                                    <xct:Expander Margin="10,10">
-                                        <xct:Expander.Header>
-                                            <Frame>
-                                                <Label Text="{Binding DiagnosisDate}" FontAttributes="Bold"
-                                                        FontSize="Medium" TextColor="Green" />
-                                            </Frame>
-                                        </xct:Expander.Header>
-                                        <Frame BorderColor="Red">
-                                            <StackLayout>
-                                                <StackLayout Orientation="Horizontal">
-                                                    <Label Text="Status" FontSize="18" Margin="0,0,20,0"/>
-                                                    <Label Text="{Binding Tag}" FontSize="18"/>
-                                                </StackLayout>
-                                                <StackLayout Orientation="Horizontal">
-                                                    <Label Text="Confidence" FontSize="18" Margin="0,0,20,0"/>
-                                                    <Label FontSize="18">
-                                                        <Label.FormattedText>
-                                                            <FormattedString>
-                                                                <FormattedString.Spans>
-                                                                    <Span Text="{Binding Confidence}"/>
-                                                                    <Span Text=" %"/>
-                                                                </FormattedString.Spans>
-                                                            </FormattedString>
-                                                        </Label.FormattedText>
-                                                    </Label>
-                                                </StackLayout>
-                                                <StackLayout Orientation="Horizontal">
-                                                    <Label Text="SubCounty" FontSize="18" Margin="0,0,20,0"/>
-                                                    <Label Text="{Binding SubCounty}" FontSize="18"/>
-                                                </StackLayout>
-                                            </StackLayout>
-                                        </Frame>
-                                    </xct:Expander>
-                                </StackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-
+                    
                     <Button Text="Logout" TextColor="White" BackgroundColor="Orange"
                     Command="{Binding LogoutCommand }" Margin="150,15" CornerRadius="10"/>
                 </StackLayout>

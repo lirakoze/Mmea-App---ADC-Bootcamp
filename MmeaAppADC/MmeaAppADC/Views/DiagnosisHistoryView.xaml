@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:helpers="clr-namespace:MmeaAppADC.Helpers"
+             xmlns:vm="clr-namespace:MmeaAppADC.ViewModels"
+             x:Class="MmeaAppADC.Views.DiagnosisHistoryView">
+    <ContentPage.BindingContext>
+        <vm:DiagnosisHistoryViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="Green" HeightRequest="26">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="Diagnosis History" TextColor="White" FontSize="20"/>
+                </StackLayout>
+            </Frame>
+            <ScrollView>
+                <CollectionView ItemsSource="{Binding Diagnoses}" Margin="0,20,0,0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout >
+                                <xct:Expander Margin="10,10">
+                                    <xct:Expander.Header>
+                                        <Frame>
+                                            <Label Text="{Binding DiagnosisDate}" FontAttributes="Bold"
+                                                        FontSize="Medium" TextColor="Orange" />
+                                        </Frame>
+                                    </xct:Expander.Header>
+                                    <Frame BorderColor="Green">
+                                        <StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Status" FontSize="18" Margin="0,0,20,0"/>
+                                                <Label Text="{Binding Tag}" FontSize="18"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Confidence" FontSize="18" Margin="0,0,20,0"/>
+                                                <Label FontSize="18">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <FormattedString.Spans>
+                                                                <Span Text="{Binding Confidence}"/>
+                                                                <Span Text=" %"/>
+                                                            </FormattedString.Spans>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="SubCounty" FontSize="18" Margin="0,0,20,0"/>
+                                                <Label Text="{Binding SubCounty}" FontSize="18"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Frame>
+                                </xct:Expander>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -67,7 +67,7 @@ namespace MmeaAppADC.ViewModels
         public Command BrowseGalleryCommand { get; set; }
         public Command TakePhotoCommand { get; set; }
         public Command LogoutCommand { get; set; }
-        public Command EditProfileCommand { get; set; }
+        public Command DiagnosisHistoryCommand { get; set; }
         private AuthService _auth;
         private DBservice _dbService;
         private ObservableCollection<UserDiagnosis> diagnoses;
@@ -81,6 +81,7 @@ namespace MmeaAppADC.ViewModels
             LogoutCommand = new Command(() => LogoutAsync());
             BrowseGalleryCommand = new Command(async () => await BrowseGalleryAsync());
             TakePhotoCommand = new Command(async () => await TakePhotoAsync());
+            DiagnosisHistoryCommand = new Command(async () => await DiagnosisHistoryAsync());
             _auth = new AuthService();
             _dbService = new DBservice();
             PhotoFile = null;
@@ -97,6 +98,10 @@ namespace MmeaAppADC.ViewModels
             PhotoFile = null;
         }
 
+        private async Task DiagnosisHistoryAsync()
+        {
+            await Application.Current.MainPage.Navigation.PushModalAsync(new DiagnosisHistoryView());
+        }
 
         private async Task TakePhotoAsync()
         {

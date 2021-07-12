@@ -21,7 +21,9 @@
             <ScrollView Margin="10">
                 <StackLayout>
 
-                    <CollectionView ItemsSource="{Binding Vets}" Margin="0,20,0,0">
+                    <CollectionView ItemsSource="{Binding Vets}" Margin="0,20,0,0"
+                                   SelectionMode="Single" SelectedItem="{Binding SelectedVet}"
+                                     >
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Orientation="Horizontal">
@@ -49,7 +51,7 @@
                                                         </FormattedString.Spans>
                                                     </FormattedString>
                                                 </Label.FormattedText>
-                                            </Label>
+                                            </Label>                                            
                                             <Label Text="{Binding PhoneNo}" FontSize="16"/>
                                         </StackLayout>                                        
                                     </Frame>
