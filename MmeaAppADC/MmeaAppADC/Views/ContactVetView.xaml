@@ -9,7 +9,25 @@
     <ContentPage.BindingContext>
         <vm:ContactVetViewModel/>
     </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <Style TargetType="StackLayout">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="WhiteSmoke" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
     <ContentPage.Content>
+        
         <StackLayout>
             <Frame BackgroundColor="Green" HeightRequest="22">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
@@ -23,12 +41,12 @@
 
                     <CollectionView ItemsSource="{Binding Vets}" Margin="0,20,0,0"
                                    SelectionMode="Single" SelectedItem="{Binding SelectedVet}"
-                                     >
+                                    x:Name="VetList">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Orientation="Horizontal">
                                     <Frame HeightRequest="100" WidthRequest="200"
-                                           Margin="10,0,0,20" Padding="10">
+                                           Margin="10,5,0,20" Padding="10">
                                         <StackLayout>
                                             <Label FontAttributes="Bold" FontSize="20">
                                                 <Label.FormattedText>
@@ -60,7 +78,8 @@
                                         <Button Text="Call" Margin="0,0,0,15" BackgroundColor="Green"
                                                 TextColor="White"/>
                                         <Button Text="Send" BackgroundColor="Orange"
-                                                TextColor="White"/>
+                                                TextColor="White"
+                                                Clicked="Send_Clicked"/>
                                     </StackLayout>
                                 </StackLayout> 
                             </DataTemplate>

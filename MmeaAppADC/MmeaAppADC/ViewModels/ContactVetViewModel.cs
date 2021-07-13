@@ -2,7 +2,6 @@
 using MmeaAppADC.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -38,14 +37,7 @@ namespace MmeaAppADC.ViewModels
             _dbService = new DBservice();
             Vets = new ObservableCollection<ApplicationUser>();
             GetVets();
-            SendMessageCommand = new Command(async () => await SendMessageAsync());
         }
-
-        private async Task SendMessageAsync()
-        {
-
-        }
-
         private async void GetVets()
         {
             var subCounty = Preferences.Get("SubCounty", "");

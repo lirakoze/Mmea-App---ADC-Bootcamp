@@ -6,18 +6,21 @@ namespace MmeaAppADC.Models
     {
         public string FarmerId { get; set; }
         public string VetId { get; set; }
+        public string FarmerPhoneNo { get; set; }
+        public string VetName { get; set; }
+        public string FarmerName { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-        private DateTime _diagnosisDate = DateTime.MinValue;
-        public DateTime DiagnosisDate
+        private DateTime timesent = DateTime.MinValue;
+        public DateTime TimeSent
         {
             get
             {
-                return (_diagnosisDate == DateTime.MinValue ? DateTime.Now : _diagnosisDate);
+                return (timesent == DateTime.MinValue ? DateTime.Now : timesent);
             }
             set
             {
-                _diagnosisDate = value;
+                timesent = value;
             }
 
         }

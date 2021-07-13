@@ -1,6 +1,7 @@
 ﻿using MmeaAppADC.Models;
 using MmeaAppADC.Views;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MmeaAppADC.ViewModels
@@ -67,8 +68,14 @@ namespace MmeaAppADC.ViewModels
         }
         private async Task ContactVetAsync()
         {
-
-            await Application.Current.MainPage.Navigation.PushAsync(new ContactVetView());
+            Message message = new Message
+            {
+                Title = $"{CropTitle} With {Confidence} % ",
+                FarmerId = Preferences.Get("UserId", ""),
+                FarmerName = $"{Preferences.Get("Firstname", "")}, {Preferences.Get("Lastname", "")}",
+                FarmerPhoneNo = Preferences.Get("PhoneNo", ""),
+            };
+            await Application.Current.MainPage.Navigation.PushAsync(new ContactVetView(message));
         }
 
 
