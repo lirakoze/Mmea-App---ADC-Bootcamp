@@ -2,7 +2,11 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              NavigationPage.HasNavigationBar="False"
+             xmlns:vm="clr-namespace:MmeaAppADC.ViewModels"
              x:Class="MmeaAppADC.Views.NotificationsView">
+    <ContentView.BindingContext>
+        <vm:NotificationsViewModel/>
+    </ContentView.BindingContext>
     <ContentView.Content>
         <StackLayout>
             <Frame BackgroundColor="Green" HeightRequest="20">
@@ -13,89 +17,55 @@
             </Frame>
             <ScrollView Margin="0,20,0,50">
                 <StackLayout>
+                    <CollectionView ItemsSource="{Binding Messages}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+
+                                    <xct:Expander Margin="10,10">
+                                        <xct:Expander.Header>
+                                            <Frame CornerRadius="10">
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="{Binding FarmerName}" FontAttributes="Bold"
+                                                        FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                                                    <Label Text="{Binding TimeSent}" HorizontalOptions="End"
+                                                           TextColor="Orange"/>
+                                                </StackLayout>                                                
+                                            </Frame>
+                                        </xct:Expander.Header>
+                                        <StackLayout>
+                                            <Frame BorderColor="Green" CornerRadius="5">
+                                                <StackLayout>
+                                                    <Label>
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <FormattedString.Spans>
+                                                                    <Span Text="Ref: " FontAttributes="Bold" FontSize="18"/>
+                                                                    <Span Text="{Binding Title}" FontSize="16"/>
+                                                                </FormattedString.Spans>
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                    <Label Text="{Binding Content}"  FontSize="16"
+                                                       Margin="0,5,0,0"/>
+                                                </StackLayout>
+                                            </Frame>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center"
+                                                         Margin="0,0,0,15">
+                                                <Button Text="Reply" BackgroundColor="Orange" TextColor="White"
+                                                        Margin="0,0,20,0" CornerRadius="10"/>
+                                                <Button Text="Call" BackgroundColor="Green" TextColor="White"
+                                                         CornerRadius="10" />
+                                            </StackLayout>                                            
+                                        </StackLayout>
+                                        
+                                    </xct:Expander>
+
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                     
-                    <xct:Expander Margin="10,10">
-                        <xct:Expander.Header>
-                            <Frame>
-                                <Label Text="Outbreak" FontAttributes="Bold"
-                     FontSize="Medium" TextColor="Red" />
-                            </Frame>
-                        </xct:Expander.Header>
-                        <Frame BorderColor="Red">
-                            <StackLayout>
-                                <Label x:Name="desc"/>
-                            </StackLayout>
-                        </Frame>
-                    </xct:Expander>
-                    <xct:Expander  Margin="10,10" >
-                        <xct:Expander.Header>
-                            <Frame>
-                                <Label Text="Winter"
-                     FontAttributes="Bold"
-                     FontSize="Medium"  TextColor="Orange"/>
-                            </Frame>
-                        </xct:Expander.Header>
-                        <Frame BorderColor="Orange">
-                            <StackLayout>
-                                <Label x:Name="causes"/>
-                            </StackLayout>
-                        </Frame>
-                    </xct:Expander>
-                    <xct:Expander Margin="10,10">
-                        <xct:Expander.Header>
-                            <Frame>
-                                <Label Text="Rain Forest"
-               FontAttributes="Bold"
-               FontSize="Medium" TextColor="Green" />
-                            </Frame>
-                        </xct:Expander.Header>
-                        <Frame BorderColor="Green">
-                            <StackLayout>
-                                <Label x:Name="recom"/>
-                            </StackLayout>
-                        </Frame>
-                    </xct:Expander>
-                    <xct:Expander Margin="10,10">
-                        <xct:Expander.Header>
-                            <Frame>
-                                <Label Text="Outbreak" FontAttributes="Bold"
-                     FontSize="Medium" TextColor="Red" />
-                            </Frame>
-                        </xct:Expander.Header>
-                        <Frame BorderColor="Red">
-                            <StackLayout>
-                                <Label x:Name="descc"/>
-                            </StackLayout>
-                        </Frame>
-                    </xct:Expander>
-                    <xct:Expander  Margin="10,10" >
-                        <xct:Expander.Header>
-                            <Frame>
-                                <Label Text="Winter"
-                     FontAttributes="Bold"
-                     FontSize="Medium"  TextColor="Orange"/>
-                            </Frame>
-                        </xct:Expander.Header>
-                        <Frame BorderColor="Orange">
-                            <StackLayout>
-                                <Label x:Name="causess"/>
-                            </StackLayout>
-                        </Frame>
-                    </xct:Expander>
-                    <xct:Expander Margin="10,10">
-                        <xct:Expander.Header>
-                            <Frame>
-                                <Label Text="Rain Forest"
-               FontAttributes="Bold"
-               FontSize="Medium" TextColor="Green" />
-                            </Frame>
-                        </xct:Expander.Header>
-                        <Frame BorderColor="Green">
-                            <StackLayout>
-                                <Label x:Name="recomm"/>
-                            </StackLayout>
-                        </Frame>
-                    </xct:Expander>
                 </StackLayout>
             </ScrollView>
         </StackLayout>

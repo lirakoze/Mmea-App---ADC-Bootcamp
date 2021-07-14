@@ -13,32 +13,23 @@
         <StackLayout>
             <Frame BackgroundColor="Green" HeightRequest="26">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Label Text="Profile Info" TextColor="White" FontSize="20"/>
+                    <Label TextColor="White" FontSize="20">
+                        <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="{Binding Firstname}"/>
+                                <Span Text="  "/>
+                                <Span Text="{Binding Lastname}"/>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                    </Label>
                 </StackLayout>
             </Frame>
-            <ScrollView Margin="0,0,0,20">
+            <ScrollView Margin="0,15,0,20">
                 <StackLayout>
                     
                         <StackLayout>
-                            <Image HeightRequest="180" WidthRequest="120"
-                                   Aspect="Fill" Margin="50,0"
-                                   Source="user.png"/>
-
-                            <StackLayout Margin="50,0,50,15"
-                                    BackgroundColor="Orange" Padding="15">
-                                <Label TextColor="White" HorizontalOptions="Center"
-                                       FontSize="20">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <FormattedString.Spans>
-                                                <Span Text="{Binding Firstname}"/>
-                                                <Span Text="  "/>
-                                                <Span Text="{Binding Lastname}"/>
-                                            </FormattedString.Spans>
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                            </StackLayout>
 
                             <StackLayout Orientation="Horizontal" Padding="10" HorizontalOptions="Center">
                                 <Label Text="Email " FontSize="20" FontAttributes="Bold"/>

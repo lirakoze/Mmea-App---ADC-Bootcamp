@@ -79,7 +79,7 @@
                                                 TextColor="White"/>
                                         <Button Text="Send" BackgroundColor="Orange"
                                                 TextColor="White"
-                                                Clicked="Send_Clicked"/>
+                                                Clicked="Send_Clicked"/>                                        
                                     </StackLayout>
                                 </StackLayout> 
                             </DataTemplate>

@@ -24,7 +24,7 @@ namespace MmeaAppADC.Views
             for (int i = 0; i < vets.Count; i++)
             {
                 _vet = vets[i] as ApplicationUser;
-                DisplayAlert("Vet", $"{_vet.FirstName}, {_vet.SubCounty}", "Okay");
+                //DisplayAlert("Vet", $"{_vet.FirstName}, {_vet.SubCounty}", "Okay");
             }
         }
 
