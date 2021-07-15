@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:vm="clr-namespace:MmeaAppADC.ViewModels"
+              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MmeaAppADC.VetArea.Views.VetDiagnoseView">
+    <ContentView.BindingContext>
+        <vm:DiagnoseViewModel/>
+    </ContentView.BindingContext>
+    <ContentView.Content>
+        <StackLayout xct:SafeAreaEffect.SafeArea="true">
+            <Frame BackgroundColor="Green" HeightRequest="20">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="Plant Health" TextColor="White" FontSize="18"
+                           HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </Frame>
+            <ScrollView Margin="0,20,0,0">
+                <StackLayout>
+                    <Frame BorderColor="Green" Margin="20">
+                        <Image HeightRequest="250" WidthRequest="250"
+                       Aspect="Fill" Source="{Binding Image}"/>
+                    </Frame>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center"
+                         Margin="20">
+                        <Button Text="  Take Photo  " Command="{Binding TakePhotoCommand}"/>
+                        <Button Text="Browse Gallery" Command="{Binding BrowseGalleryCommand}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" Margin="80,20">
+                        <Button Text="Diagnose" BackgroundColor="Green" TextColor="White"
+                                CornerRadius="5" Command="{Binding DiagnoseCommand}"
+                                IsEnabled="{Binding IsAvailable}"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+
+
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

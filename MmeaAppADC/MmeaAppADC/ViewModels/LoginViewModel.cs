@@ -1,7 +1,9 @@
 ﻿using Acr.UserDialogs;
 using MmeaAppADC.Services;
+using MmeaAppADC.VetArea.Views;
 using MmeaAppADC.Views;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MmeaAppADC.ViewModels
@@ -46,9 +48,14 @@ namespace MmeaAppADC.ViewModels
             var isvalid = await _authService.LoginUser(Username, Password);
             if (isvalid)
             {
+                if (Preferences.Get("Type", "") == "Farmer")
+                {
+                    UserDialogs.Instance.HideLoading();
+                    Application.Current.MainPage = new NavigationPage(new HomeView());
+                }
                 //await Application.Current.MainPage.Navigation.PushAsync(new HomeView());
                 UserDialogs.Instance.HideLoading();
-                Application.Current.MainPage = new NavigationPage(new HomeView());
+                Application.Current.MainPage = new NavigationPage(new VetHomeView());
             }
             else
             {

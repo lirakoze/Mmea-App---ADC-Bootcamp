@@ -32,6 +32,20 @@ namespace MmeaAppADC.Services
             }
 
         }
+        public async Task<bool> ReplyMessage(Message message)
+        {
+            try
+            {
+                await _firebase.Child("REPLIES").PostAsync(message);
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("Failed to Save Message", ex.Message);
+                return false;
+            }
+        }
         public async Task<List<Message>> GetFarmerMessages()
         {
             var list = new List<Message>();

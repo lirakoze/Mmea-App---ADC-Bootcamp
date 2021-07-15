@@ -1,6 +1,7 @@
 ﻿using Acr.UserDialogs;
 using MmeaAppADC.Models;
 using MmeaAppADC.Services;
+using MmeaAppADC.VetArea.Views;
 using MmeaAppADC.Views;
 using System;
 using System.IO;
@@ -129,7 +130,17 @@ namespace MmeaAppADC.ViewModels
                     PhotoFile = null;
                     Image = null;
                     //Navigate to result page
-                    await Application.Current.MainPage.Navigation.PushAsync(new CropInfoView(result, url));
+                    if (Preferences.Get("Type", "") == "Farmer")
+                    {
+                        await Application.Current.MainPage.Navigation.PushAsync(new CropInfoView(result, url));
+                        return;
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.Navigation.PushAsync(new VetCropInfo(result, url));
+                        return;
+                    }
+
                 }
                 return;
 

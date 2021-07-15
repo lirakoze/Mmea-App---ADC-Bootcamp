@@ -1,4 +1,6 @@
-﻿using MmeaAppADC.Views;
+﻿using Acr.UserDialogs;
+using MmeaAppADC.VetArea.Views;
+using MmeaAppADC.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -9,10 +11,19 @@ namespace MmeaAppADC
         public App()
         {
             InitializeComponent();
-           // Preferences.Clear();
+            // Preferences.Clear();
             if (!string.IsNullOrEmpty(Preferences.Get("UserId", "")))
             {
-                MainPage = new NavigationPage(new HomeView());
+                if (Preferences.Get("Type", "") == "Farmer")
+                {
+                    UserDialogs.Instance.HideLoading();
+                    Application.Current.MainPage = new NavigationPage(new HomeView());
+                }
+                else
+                {
+                    UserDialogs.Instance.HideLoading();
+                    MainPage = new NavigationPage(new VetHomeView());
+                }
             }
             else
             {
