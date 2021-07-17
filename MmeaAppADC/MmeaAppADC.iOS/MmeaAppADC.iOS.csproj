@@ -167,4 +167,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\user.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\logo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\logo.png" />
+  </ItemGroup>
 </Project>
