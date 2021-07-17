@@ -1,6 +1,5 @@
 ﻿
 using MmeaAppADC.Models;
-using MmeaAppADC.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -29,7 +28,6 @@ namespace MmeaAppADC.VetArea.Views
         private async void Button_Clicked(object sender, System.EventArgs e)
         {
             _message.Content = "";
-
 
             //await Navigation.PushModalAsync(new SendMessageView(_message));
         }
