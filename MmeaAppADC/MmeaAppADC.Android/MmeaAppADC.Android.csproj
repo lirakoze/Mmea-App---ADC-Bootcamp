@@ -112,7 +112,6 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\MmeaAppADC\MmeaAppADC.csproj">
       <Project>{3F12AF69-37E8-46F3-98F5-33915E11DB62}</Project>
