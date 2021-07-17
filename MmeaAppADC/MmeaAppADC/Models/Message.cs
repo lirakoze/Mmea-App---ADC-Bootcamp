@@ -7,6 +7,7 @@ namespace MmeaAppADC.Models
         public string FarmerId { get; set; }
         public string VetId { get; set; }
         public string FarmerPhoneNo { get; set; }
+        public string VetPhoneNo { get; set; }
         public string VetName { get; set; }
         public string FarmerName { get; set; }
         public string Title { get; set; }

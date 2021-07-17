@@ -8,13 +8,15 @@ namespace MmeaAppADC.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ContactVetView : ContentPage
     {
-        public Message _message { get; set; }
-        public ApplicationUser _vet { get; set; }
+        private SMSAndCallService _smsAndCallService;
+        private Message _message { get; set; }
+        private ApplicationUser _vet { get; set; }
         public ContactVetView(Message message)
         {
             InitializeComponent();
             BindingContext = new ViewModels.ContactVetViewModel();
             _message = message;
+            _smsAndCallService = new SMSAndCallService();
             VetList.SelectionChanged += VetList_SelectionChanged;
         }
 
@@ -31,9 +33,17 @@ namespace MmeaAppADC.Views
         private async void Send_Clicked(object sender, System.EventArgs e)
         {
             _message.VetId = _vet.Id;
+            _message.VetPhoneNo = _vet.PhoneNo;
             _message.VetName = $"{_vet.FirstName}, {_vet.LastName}";
+            _message.Content = $"Ref: {_message.Title}\n ";
+            await _smsAndCallService.SendSMS(_message);
 
-            await Navigation.PushModalAsync(new SendMessageView(_message));
+
+        }
+        private void Call_Clicked(object sender, System.EventArgs e)
+        {
+            _smsAndCallService.PhoneDial(_message.VetPhoneNo);
+            //await Navigation.PushModalAsync(new SendMessageView(_message));
         }
     }
 }

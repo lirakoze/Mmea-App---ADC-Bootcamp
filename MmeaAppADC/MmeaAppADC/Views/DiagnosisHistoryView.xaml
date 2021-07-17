@@ -23,33 +23,45 @@
                                 <xct:Expander Margin="10,10">
                                     <xct:Expander.Header>
                                         <Frame>
-                                            <Label Text="{Binding DiagnosisDate}" FontAttributes="Bold"
-                                                        FontSize="Medium" TextColor="Orange" />
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="{Binding Tag}" FontAttributes="Bold"
+                                                        FontSize="Medium" TextColor="Orange"
+                                                       HorizontalOptions="StartAndExpand"/>
+                                                <Label Text="{Binding DiagnosisDate}" FontAttributes="Bold"
+                                                        FontSize="Medium" TextColor="Orange"
+                                                       HorizontalOptions="Center"/>
+                                            </StackLayout>
+                                            
                                         </Frame>
                                     </xct:Expander.Header>
                                     <Frame BorderColor="Green">
-                                        <StackLayout>
-                                            <StackLayout Orientation="Horizontal">
-                                                <Label Text="Status" FontSize="18" Margin="0,0,20,0"/>
-                                                <Label Text="{Binding Tag}" FontSize="18"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <StackLayout Margin="0,0,20,0" >
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="Status" FontSize="18" Margin="0,0,20,0"/>
+                                                    <Label Text="{Binding Tag}" FontSize="18"/>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="Confidence" FontSize="18" Margin="0,0,20,0"/>
+                                                    <Label FontSize="18">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <FormattedString.Spans>
+                                                                    <Span Text="{Binding Confidence}"/>
+                                                                    <Span Text=" %"/>
+                                                                </FormattedString.Spans>
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="SubCounty" FontSize="18" Margin="0,0,20,0"/>
+                                                    <Label Text="{Binding SubCounty}" FontSize="18"/>
+                                                </StackLayout>
                                             </StackLayout>
-                                            <StackLayout Orientation="Horizontal">
-                                                <Label Text="Confidence" FontSize="18" Margin="0,0,20,0"/>
-                                                <Label FontSize="18">
-                                                    <Label.FormattedText>
-                                                        <FormattedString>
-                                                            <FormattedString.Spans>
-                                                                <Span Text="{Binding Confidence}"/>
-                                                                <Span Text=" %"/>
-                                                            </FormattedString.Spans>
-                                                        </FormattedString>
-                                                    </Label.FormattedText>
-                                                </Label>
-                                            </StackLayout>
-                                            <StackLayout Orientation="Horizontal">
-                                                <Label Text="SubCounty" FontSize="18" Margin="0,0,20,0"/>
-                                                <Label Text="{Binding SubCounty}" FontSize="18"/>
-                                            </StackLayout>
+                                            
+                                            <Image Source="{Binding ImageUrl}" HeightRequest="120"
+                                                   WidthRequest="120" Aspect="AspectFill"/>
                                         </StackLayout>
                                     </Frame>
                                 </xct:Expander>

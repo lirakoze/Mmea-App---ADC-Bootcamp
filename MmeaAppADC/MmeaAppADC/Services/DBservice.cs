@@ -117,6 +117,7 @@ namespace MmeaAppADC.Services
                 Tag = diag.Object.Tag,
                 Confidence = diag.Object.Confidence,
                 UserId = diag.Object.UserId,
+                ImageUrl = diag.Object.ImageUrl,
                 SubCounty = diag.Object.SubCounty,
             }).Where(diag => diag.UserId == id).OrderByDescending(o => o.DiagnosisDate).ToList();
             return list;

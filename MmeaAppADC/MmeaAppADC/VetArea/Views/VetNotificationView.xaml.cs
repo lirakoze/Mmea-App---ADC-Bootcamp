@@ -31,7 +31,7 @@ namespace MmeaAppADC.VetArea.Views
             _message.Content = "";
 
 
-            await Navigation.PushModalAsync(new SendMessageView(_message));
+            //await Navigation.PushModalAsync(new SendMessageView(_message));
         }
     }
 }

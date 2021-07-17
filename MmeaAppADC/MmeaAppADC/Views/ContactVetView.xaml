@@ -46,7 +46,7 @@
                             <DataTemplate>
                                 <StackLayout Orientation="Horizontal">
                                     <Frame HeightRequest="100" WidthRequest="200"
-                                           Margin="10,5,0,20" Padding="10">
+                                           Margin="20,5,0,20" Padding="10" CornerRadius="5">
                                         <StackLayout>
                                             <Label FontAttributes="Bold" FontSize="20">
                                                 <Label.FormattedText>
@@ -74,11 +74,12 @@
                                         </StackLayout>                                        
                                     </Frame>
                                     <StackLayout Orientation="Vertical"
-                                                 Margin="20,0,0,0">
+                                                 Margin="20,0,0,0" >
                                         <Button Text="Call" Margin="0,0,0,15" BackgroundColor="Green"
-                                                TextColor="White"/>
-                                        <Button Text="Send" BackgroundColor="Orange"
-                                                TextColor="White"
+                                                TextColor="White" Clicked="Call_Clicked"
+                                                CornerRadius="10"/>
+                                        <Button Text="Message" BackgroundColor="Orange"
+                                                TextColor="White" CornerRadius="10"
                                                 Clicked="Send_Clicked"/>                                        
                                     </StackLayout>
                                 </StackLayout> 

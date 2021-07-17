@@ -17,8 +17,7 @@
             </Frame>
             <ScrollView Margin="0,20,0,50">
                 <StackLayout>
-                    <CollectionView ItemsSource="{Binding Messages}"
-                                    SelectionMode="Single"
+                    <CollectionView  SelectionMode="Single"
                                     x:Name="MessagesList" SelectionChanged="MessagesList_SelectionChanged">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
@@ -28,9 +27,9 @@
                                         <xct:Expander.Header>
                                             <Frame CornerRadius="10">
                                                 <StackLayout Orientation="Horizontal">
-                                                    <Label Text="{Binding FarmerName}" FontAttributes="Bold"
+                                                    <Label Text="" FontAttributes="Bold"
                                                         FontSize="Medium" HorizontalOptions="StartAndExpand"/>
-                                                    <Label Text="{Binding TimeSent}" HorizontalOptions="End"
+                                                    <Label Text="" HorizontalOptions="End"
                                                            TextColor="Orange"/>
                                                 </StackLayout>
                                             </Frame>
@@ -43,12 +42,12 @@
                                                             <FormattedString>
                                                                 <FormattedString.Spans>
                                                                     <Span Text="Ref: " FontAttributes="Bold" FontSize="18"/>
-                                                                    <Span Text="{Binding Title}" FontSize="16"/>
+                                                                    <Span Text="" FontSize="16"/>
                                                                 </FormattedString.Spans>
                                                             </FormattedString>
                                                         </Label.FormattedText>
                                                     </Label>
-                                                    <Label Text="{Binding Content}"  FontSize="16"
+                                                    <Label Text=""  FontSize="16"
                                                        Margin="0,5,0,0"/>
                                                 </StackLayout>
                                             </Frame>
