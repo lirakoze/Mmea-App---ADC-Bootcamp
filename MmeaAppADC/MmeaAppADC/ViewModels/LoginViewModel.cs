@@ -2,6 +2,7 @@
 using MmeaAppADC.Services;
 using MmeaAppADC.VetArea.Views;
 using MmeaAppADC.Views;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -43,32 +44,58 @@ namespace MmeaAppADC.ViewModels
         //Method to Login Users
         private async Task LoginAsync()
         {
+
             UserDialogs.Instance.ShowLoading("Loading...");
-            //Auth Service
-            var isvalid = await _authService.LoginUser(Username, Password);
-            if (isvalid)
+            var isValid = ValidateInputs(Username, Password);
+            if (!isValid)
             {
-                if (Preferences.Get("Type", "") == "Farmer")
+                UserDialogs.Instance.HideLoading();
+                await Application.Current.MainPage.DisplayAlert("Failed", "Please, Provide Email and Password", "Ok");
+                return;
+            }
+            //Auth Service
+            try
+            {
+                var isvalid = await _authService.LoginUser(Username, Password);
+                if (isvalid)
+                {
+                    if (Preferences.Get("Type", "") == "Farmer")
+                    {
+                        UserDialogs.Instance.HideLoading();
+                        Application.Current.MainPage = new NavigationPage(new HomeView());
+                    }
+                    //await Application.Current.MainPage.Navigation.PushAsync(new HomeView());
+                    UserDialogs.Instance.HideLoading();
+                    Application.Current.MainPage = new NavigationPage(new VetHomeView());
+                }
+                else
                 {
                     UserDialogs.Instance.HideLoading();
-                    Application.Current.MainPage = new NavigationPage(new HomeView());
-                }
-                //await Application.Current.MainPage.Navigation.PushAsync(new HomeView());
-                UserDialogs.Instance.HideLoading();
-                Application.Current.MainPage = new NavigationPage(new VetHomeView());
-            }
-            else
-            {
-                UserDialogs.Instance.HideLoading();
-                await Application.Current.MainPage.DisplayAlert("Failed", "Incorrect Username or Password", "Ok");
-                return;
-                //await Application.Current.MainPage.Navigation.PushAsync(new HomeView());
+                    await Application.Current.MainPage.DisplayAlert("Failed", "Incorrect Username or Password", "Ok");
+                    return;
+                    //await Application.Current.MainPage.Navigation.PushAsync(new HomeView());
 
-                //Application.Current.MainPage = new NavigationPage(new HomeView());
+                    //Application.Current.MainPage = new NavigationPage(new HomeView());
+                }
             }
+            catch (Exception)
+            {
+
+                UserDialogs.Instance.HideLoading();
+                await Application.Current.MainPage.DisplayAlert("Login Failed", "Please check your internet connection", "Ok");
+            }
+
 
 
             //Navigate to Home page
         }
+
+        private bool ValidateInputs(string username, string password)
+        {
+            if (username == null && password == null)
+                return false;
+            return true;
+        }
+
     }
 }

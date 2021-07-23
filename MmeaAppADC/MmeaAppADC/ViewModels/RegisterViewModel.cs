@@ -4,6 +4,7 @@ using MmeaAppADC.Services;
 using MmeaAppADC.Views;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -127,33 +128,18 @@ namespace MmeaAppADC.ViewModels
             UserDialogs.Instance.ShowLoading("Loading...");
             try
             {
-                if (!Password.Equals(ConfirmPassword) || password == null || confirmPassword == null)
+                var isValid = IsValid(Firstname, Lastname, Email, PhoneNo, Type, SelectedCounty.Name, SelectedSubCounty.Name);
+                if (isValid)
                 {
-                    UserDialogs.Instance.HideLoading();
-                    UserDialogs.Instance.Alert("Password don't match. try again", "Registration", "Okay");
-                    return;
+                    await RegisterUser();
                 }
                 else
                 {
-                    var user = new ApplicationUser
-                    {
-                        FirstName = Firstname,
-                        LastName = Lastname,
-                        Email = Email,
-                        PhoneNo = PhoneNo,
-                        County = SelectedCounty.Name,
-                        SubCounty = SelectedSubCounty.Name,
-                        ProfileImageUrl = "",
-                        Type = Type
-                    };
-                    //Auth service
-                    await _authService.RegisterUser(user, Password);
                     UserDialogs.Instance.HideLoading();
-                    UserDialogs.Instance.Alert("Registration is successful", "Registration", "Okay");
-                    //Navigate to login
-                    //await Application.Current.MainPage.Navigation.PushAsync(new LoginView());
-                    Application.Current.MainPage = new NavigationPage(new LoginView());
+                    UserDialogs.Instance.Alert("Please, Provide the required Information", "Registration", "Okay");
+                    return;
                 }
+
 
             }
             catch (Exception ex)
@@ -197,6 +183,72 @@ namespace MmeaAppADC.ViewModels
 
         }
 
+        private bool IsValid(string fname, string lname, string email, string phone, string type, string county, string subcounty)
+        {
+            if (fname.Length < 3 || lname.Length < 3 || phone.Length < 9 || type == null || county == null || subcounty == null)
+                return false;
+            return true;
 
+        }
+
+        private async Task RegisterUser()
+        {
+            var isValidEmail = ValidateEmail(Email);
+            if (!isValidEmail)
+            {
+                UserDialogs.Instance.Alert("Invalid Email.Please Try Again", "Registration", "Okay");
+                UserDialogs.Instance.HideLoading();
+                return;
+            }
+            else
+            {
+                if (!Password.Equals(ConfirmPassword) || password == null || confirmPassword == null)
+                {
+                    UserDialogs.Instance.HideLoading();
+                    UserDialogs.Instance.Alert("Password don't match. try again", "Registration", "Okay");
+                    return;
+                }
+                else
+                {
+                    var user = new ApplicationUser
+                    {
+                        FirstName = Firstname,
+                        LastName = Lastname,
+                        Email = Email,
+                        PhoneNo = PhoneNo,
+                        County = SelectedCounty.Name,
+                        SubCounty = SelectedSubCounty.Name,
+                        ProfileImageUrl = "",
+                        Type = Type
+                    };
+                    try
+                    {
+                        //Auth service
+                        await _authService.RegisterUser(user, Password);
+                        UserDialogs.Instance.HideLoading();
+                        UserDialogs.Instance.Alert("Registration is successful", "Registration", "Okay");
+                        //Navigate to login
+                        //await Application.Current.MainPage.Navigation.PushAsync(new LoginView());
+                        Application.Current.MainPage = new NavigationPage(new LoginView());
+                    }
+                    catch (Exception)
+                    {
+
+                        UserDialogs.Instance.HideLoading();
+                        UserDialogs.Instance.Alert("Failed to register. Please check your Internet connection", "Registration", "Okay");
+                    }
+
+                }
+            }
+
+        }
+        private bool ValidateEmail(string address)
+        {
+            EmailAddressAttribute e = new EmailAddressAttribute();
+            if (e.IsValid(address))
+                return true;
+            else
+                return false;
+        }
     }
 }
