@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
              xmlns:helpers="clr-namespace:MmeaAppADC.Helpers"
@@ -7,7 +7,86 @@
              x:Class="MmeaAppADC.Views.FeedView">
     <ContentView.Content>
         <StackLayout>
-            
+            <Frame BackgroundColor="Green" HeightRequest="20">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="News Feed" TextColor="White" FontSize="18"
+                           HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </Frame>
+            <ScrollView>
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal" BackgroundColor="WhiteSmoke"
+                                 Padding="10"
+                                 Margin="2">
+                        <Frame Padding="0"
+                               CornerRadius="100"
+                               IsClippedToBounds="True">
+                            <Image Source="logo"
+                                   HeightRequest="80"
+                                   WidthRequest="80"
+                                HorizontalOptions="Center"
+                                   VerticalOptions="Center">
+                                <Image.Clip>
+                                    <EllipseGeometry
+                                        Center="50,50"
+                                        RadiusX="50"
+                                        RadiusY="50"/>
+                                </Image.Clip>
+                            </Image>
+                        </Frame> 
+                        <Label Text="What's on your mind ?" FontSize="20"
+                               HorizontalOptions="StartAndExpand"
+                               Margin="35,0,0,0"
+                               VerticalOptions="Center"/>
+                        <StackLayout Orientation="Vertical" Padding="5">
+                            <Frame>
+                                
+                            </Frame>
+                            <Label Text="Photo"/>
+                        </StackLayout>
+                    </StackLayout>
+                    
+                        <Frame HorizontalOptions="Center" CornerRadius="40"
+                               BackgroundColor="Orange">
+                        <Label Text="      New Posts      " TextColor="White">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding .}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        </Frame>
+                    <StackLayout BackgroundColor="WhiteSmoke">
+
+                        <StackLayout Orientation="Horizontal" BackgroundColor="WhiteSmoke"
+                                 Padding="4"
+                                 Margin="2">
+                            <Frame Padding="0"
+                               CornerRadius="100"
+                               IsClippedToBounds="True">
+                                <Image Source="logo"
+                                   HeightRequest="75"
+                                   WidthRequest="75"
+                                HorizontalOptions="Center"
+                                   VerticalOptions="Center">
+                                    <Image.Clip>
+                                        <EllipseGeometry
+                                        Center="50,50"
+                                        RadiusX="50"
+                                        RadiusY="50"/>
+                                    </Image.Clip>
+                                </Image>
+                            </Frame>
+                            <Label Text="User Name" FontSize="20"
+                                   Margin="0,8,0,0"
+                               HorizontalOptions="StartAndExpand"/>
+                            <Label Text="Date Posted" VerticalOptions="End"/>
+                        </StackLayout>
+                        <Label Text="Content"/>
+                        <Image HeightRequest="200" WidthRequest="100"/>
+
+                    </StackLayout>
+                </StackLayout>
+
+            </ScrollView>
         </StackLayout>
 
     </ContentView.Content>

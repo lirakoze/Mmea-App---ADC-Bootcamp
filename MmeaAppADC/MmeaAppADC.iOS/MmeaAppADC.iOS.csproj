@@ -165,9 +165,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\labels.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\user.png" />
   </ItemGroup>
   <ItemGroup>
@@ -175,5 +172,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\labels.txt" />
   </ItemGroup>
 </Project>
