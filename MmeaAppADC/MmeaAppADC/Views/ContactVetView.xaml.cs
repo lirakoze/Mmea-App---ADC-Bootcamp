@@ -32,6 +32,9 @@ namespace MmeaAppADC.Views
 
         private async void Send_Clicked(object sender, System.EventArgs e)
         {
+            if (_vet == null)
+                return;
+
             _message.VetId = _vet.Id;
             _message.VetPhoneNo = _vet.PhoneNo;
             _message.VetName = $"{_vet.FirstName}, {_vet.LastName}";
@@ -42,8 +45,11 @@ namespace MmeaAppADC.Views
         }
         private void Call_Clicked(object sender, System.EventArgs e)
         {
+            if (_vet == null)
+                return;
             _smsAndCallService.PhoneDial(_message.VetPhoneNo);
             //await Navigation.PushModalAsync(new SendMessageView(_message));
         }
+
     }
 }
