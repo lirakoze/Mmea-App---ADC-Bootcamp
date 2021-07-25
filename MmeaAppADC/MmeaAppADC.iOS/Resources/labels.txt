@@ -1,13 +1,32 @@
+Apple Black Rot
+Apple Scab
+Cedar Apple Rust
+Grape Black Measles
+Grape Leaf Blight (Isariopsis Leaf Spot)
+Grapes Black Rot
+Healthy Apple
+Healthy Blueberry
+Healthy Grape
 Healthy Maize Corn
+Healthy Peach
+Healthy Potato
+Healthy Soy Beans
+Healthy Strawberry
 Healthy Tomato
-Maize Corn- Cercospora Leaf Spot
-Maize Corn- Common rust
-Maize Corn- Northern Leaf Blight
+Maize Corn Common Rust
+Maize Corn Northern Leaf Blight
+Orange Citrus Greening
+Peach Bacterial Spot
+Pepper Bell Bacterial Spot
+Pepper Bell Healthy
+Potato Early Blight
+Potato Late Blight
+Squash Powder Mildew
+Strawberry Leaf Scotch
 Tomato Bacterial Spot
 Tomato Early Blight
 Tomato Late Blight
-Tomato Leaf Mould
+Tomato Leaf Mold
 Tomato Mosaic Virus
-Tomato Septoria Leaf Spot
-Tomato Target Spot
-Tomato Yellow Leaf Curl Virus
+Tomato Septoria leaf spot
+Unknown Disease
