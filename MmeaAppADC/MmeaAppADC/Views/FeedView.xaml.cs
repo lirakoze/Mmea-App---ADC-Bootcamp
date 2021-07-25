@@ -11,5 +11,10 @@ namespace MmeaAppADC.Views
         {
             InitializeComponent();
         }
+
+        private void TapGestureRecognizer_Tapped(object sender, System.EventArgs e)
+        {
+            Navigation.PushModalAsync(new UserPostView());
+        }
     }
 }

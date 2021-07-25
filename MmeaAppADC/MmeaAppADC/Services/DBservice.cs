@@ -122,5 +122,51 @@ namespace MmeaAppADC.Services
             }).Where(diag => diag.UserId == id).OrderByDescending(o => o.DiagnosisDate).ToList();
             return list;
         }
+
+
+        //POSTS
+        public async Task<bool> Post(Post post)
+        {
+            try
+            {
+                await _firebase.Child("POSTS").PostAsync(post);
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("Failed to Post", ex.Message);
+                return false;
+            }
+
+        }
+        public async Task<List<Post>> GetPosts()
+        {
+            List<Post> list = new List<Post>();
+            list = (await _firebase.Child("POSTS").OnceAsync<Post>()).Select(p => new Post
+            {
+                Content = p.Object.Content,
+                PostDate = p.Object.PostDate,
+                UserId = p.Object.UserId,
+                ImageUrl = p.Object.ImageUrl,
+
+            }).OrderByDescending(o => o.PostDate).ToList();
+            return list;
+        }
+        public async Task<string> UploadPostPhoto(Stream stream, string filename)
+        {
+            await _firebaseStorage
+                .Child("POST_IMAGES").Child(filename).PutAsync(stream);
+            var url = await GetPostPhotoUrl(filename);
+
+            return url;
+        }
+        private async Task<string> GetPostPhotoUrl(string fileName)
+        {
+            return await _firebaseStorage
+                .Child("POST_IMAGES")
+                .Child(fileName)
+                .GetDownloadUrlAsync();
+        }
     }
 }
