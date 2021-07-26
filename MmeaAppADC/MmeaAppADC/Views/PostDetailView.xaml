@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"                        
              xmlns:helpers="clr-namespace:MmeaAppADC.Helpers"
              NavigationPage.HasNavigationBar="False"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
              xmlns:vm="clr-namespace:MmeaAppADC.ViewModels"
-             x:Class="MmeaAppADC.Views.UserPostView">
+             x:Class="MmeaAppADC.Views.PostDetailView">
     <ContentPage.BindingContext>
-        <vm:UserPostViewModel/>
+        <vm:PostDetailViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
@@ -22,10 +22,11 @@
                     </LinearGradientBrush>
                 </Frame.Background>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Label Text="Create Post" TextColor="White" FontSize="18"
+                    <Label Text="Post Detail" TextColor="White" FontSize="18"
                            HorizontalTextAlignment="Center"/>
                 </StackLayout>
             </Frame>
+
             <ScrollView>
                 <StackLayout>
                     <StackLayout Orientation="Horizontal" BackgroundColor="WhiteSmoke"
@@ -48,40 +49,32 @@
                                 </Image.Clip>
                             </Image>
                         </Frame>
-                        <Label Text="{Binding Username}" FontSize="18"
+                        <Label Text="{Binding Post.Username}" FontSize="18"
                                    Margin="0,8,0,0"
                                HorizontalOptions="StartAndExpand"/>
+                        <Label Text="{Binding Post.PostDate}" HorizontalOptions="End" 
+                               Margin="0,15,10,0" TextColor="Orange"/>
 
                     </StackLayout>
-                    <StackLayout>
-                        <Frame CornerRadius="5" Margin="10,0" BorderColor="Orange"
-                               Padding="0">
-                            <Editor  Placeholder="What's on your mind?" IsTextPredictionEnabled="True"
-                               HeightRequest="300" Keyboard="Text" Text="{Binding Content}"/>
-                        </Frame>
+                    <StackLayout Margin="0,20,0,0">
+                            <StackLayout>
+                                <Label Text="{Binding Post.Content}"/>
+                                <Image HeightRequest="300" WidthRequest="100"
+                               Source="{Binding Post.ImageUrl}"
+                               Aspect="AspectFill"/>
+                            </StackLayout>                         
                         
+                        <Frame BackgroundColor="WhiteSmoke">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Like" HorizontalOptions="Start" FontAttributes="Bold"
+                                       FontSize="18"/>
+                                <Label Text="Comment" HorizontalOptions="CenterAndExpand" FontAttributes="Bold"
+                                       FontSize="18"/>
+                                <Label Text="Share" HorizontalOptions="End" FontAttributes="Bold"
+                                       FontSize="18"/>
+                            </StackLayout>
+                        </Frame>
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal" Margin="20">
-                        <Button Text="Add Photo" TextColor="White" BackgroundColor="Green"
-                             HorizontalOptions="StartAndExpand" CornerRadius="15"
-                                Command="{Binding AddPhotoCommand}"/>
-
-                        <Button Text="Post" TextColor="White" BackgroundColor="Green"
-                             HorizontalOptions="Center" CornerRadius="15"
-                                Command="{Binding PostCommand}"/>
-                    </StackLayout>
-                    
-                    <StackLayout Margin="10,0,10,20">
-                        <Image HeightRequest="160" WidthRequest="200" 
-                               Source="{Binding Image}" Aspect="AspectFill"/>
-                        <Label Text="Remove Photo" FontAttributes="Bold" 
-                               TextColor="Red" FontSize="18" IsVisible="{Binding IsVisible,Mode=TwoWay}">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding RemovePhotoCommand}"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </StackLayout>
-
                 </StackLayout>
             </ScrollView>
         </StackLayout>

@@ -2,7 +2,9 @@
 using MmeaAppADC.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace MmeaAppADC.ViewModels
 {
@@ -15,13 +17,37 @@ namespace MmeaAppADC.ViewModels
             set { messages = value; OnPropertyChanged(); }
         }
         private MessageService _mService;
+        public Command RefreshCommand { get; set; }
+        private bool isRefreshing;
+        public bool IsRefreshing
+        {
+            get { return isRefreshing; }
+            set { isRefreshing = value; OnPropertyChanged(); }
+        }
+        private bool isVisible;
+        public bool IsVisible
+        {
+            get { return isVisible; }
+            set { isVisible = value; OnPropertyChanged(); }
+        }
         public NotificationsViewModel()
         {
             _mService = new MessageService();
             Messages = new ObservableCollection<Message>();
-            GetMessages();
+            RefreshCommand = new Command(async () => await RefreshAsync());
+            _ = GetMessages();
+            IsRefreshing = false;
+            IsVisible = false;
         }
-        private async void GetMessages()
+
+        private async Task RefreshAsync()
+        {
+            Messages.Clear();
+            await GetMessages();
+            IsRefreshing = false;
+        }
+
+        private async Task GetMessages()
         {
             List<Message> list;
 
@@ -42,6 +68,9 @@ namespace MmeaAppADC.ViewModels
                     Messages.Add(m);
                 }
             }
+            if (list.Count == 0)
+                IsVisible = true;
+
         }
     }
 }

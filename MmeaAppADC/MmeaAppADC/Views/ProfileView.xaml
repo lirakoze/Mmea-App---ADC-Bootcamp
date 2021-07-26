@@ -11,7 +11,16 @@
     </ContentView.BindingContext>
     <ContentView.Content>
         <StackLayout>
-            <Frame BackgroundColor="Green" HeightRequest="26">
+            <Frame HeightRequest="26">
+                <Frame.Background>
+                    <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="1,0">
+                        <GradientStop Color="Orange"
+                          Offset="0.2"/>
+                        <GradientStop Color="Green"
+                          Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Frame.Background>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Label TextColor="White" FontSize="20">
                         <Label.FormattedText>
@@ -62,9 +71,12 @@
 
                         <Button TextColor="White" CornerRadius="10"
                                 BackgroundColor="Orange" Text="View Diagnosis History"
-                                Margin="50,40" Padding="10" Command="{Binding DiagnosisHistoryCommand}"/>                  
+                                Margin="50,40" Padding="10" Command="{Binding DiagnosisHistoryCommand}"/>
+                    <Button TextColor="White" CornerRadius="10"
+                                BackgroundColor="Orange" Text="View Posts History"
+                                Margin="50,20" Padding="10" Command="{Binding PostHistoryCommand}"/>
 
-                    
+
                     <Button Text="Logout" TextColor="White" BackgroundColor="Orange"
                     Command="{Binding LogoutCommand }" Margin="150,15" CornerRadius="10"/>
                 </StackLayout>

@@ -102,6 +102,7 @@ namespace MmeaAppADC.ViewModels
 
             Post post = new Post
             {
+                Username = $"{Preferences.Get("Firstname", "")} {Preferences.Get("Lastname", "")}",
                 UserId = Preferences.Get("UserId", ""),
                 PostDate = DateTime.Now
             };
@@ -114,7 +115,6 @@ namespace MmeaAppADC.ViewModels
             }
             else if (Content != null && PhotoFile == null)
             {
-                post.ImageUrl = "";
                 post.Content = Content;
                 var isSuccess = await _dBservice.Post(post);
 
@@ -129,7 +129,6 @@ namespace MmeaAppADC.ViewModels
             else if (Content == null && PhotoFile != null)
             {
                 var url = await _dBservice.UploadPostPhoto(await PhotoFile.OpenReadAsync(), PhotoFile.FileName);
-                post.Content = "";
                 post.ImageUrl = url;
                 var isSuccess = await _dBservice.Post(post);
                 UserDialogs.Instance.HideLoading();

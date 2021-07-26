@@ -30,6 +30,15 @@
         
         <StackLayout>
             <Frame BackgroundColor="Green" HeightRequest="22">
+                <Frame.Background>
+                    <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="1,0">
+                        <GradientStop Color="Orange"
+                          Offset="0.2"/>
+                        <GradientStop Color="Green"
+                          Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Frame.Background>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Label Text="Contact Agro-vet" TextColor="White" FontSize="18"
                            HorizontalTextAlignment="Center"/>

@@ -13,12 +13,30 @@
 
     <ContentPage.Content>        
         <StackLayout xct:SafeAreaEffect.SafeArea="true">
-            <Label Text="Mmea" FontSize="40" FontAttributes="Bold"
-                   TextColor="Green" HorizontalTextAlignment="Center"
-                   Margin="0,50,0,20"/>
+            <Frame HorizontalOptions="Center" Margin="0,50,0,2" CornerRadius="100"
+                   IsClippedToBounds="True" HasShadow="True" BackgroundColor="Azure">
+                <Frame.Background>
+                    <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="1,0">
+                        <GradientStop Color="Orange"
+                          Offset="0.2"/>
+                        <GradientStop Color="Green"
+                          Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Frame.Background>
+                <StackLayout>
+                    <Label Text="Mmea" FontSize="40" FontAttributes="Bold"
+                   TextColor="White" HorizontalTextAlignment="Center"
+                   Margin="0,0,0,2"/>
+                    <Label Text="Every Farmer's Companion" FontSize="18" FontAttributes="Bold"
+                   TextColor="White" HorizontalTextAlignment="Center"
+                   Margin="0,0,0,20"/>
+                </StackLayout>
+            </Frame>
+            
             <ScrollView  Margin="0,40,0,0">
                 <Frame CornerRadius="5" Margin="20,40,20,40" HasShadow="True"
-                       BorderColor="Orange" >
+                       BorderColor="Orange" BackgroundColor="Azure">
                     <StackLayout>
                         <Label Text="Login" FontSize="30" FontAttributes="Bold"
                                TextColor="Green"

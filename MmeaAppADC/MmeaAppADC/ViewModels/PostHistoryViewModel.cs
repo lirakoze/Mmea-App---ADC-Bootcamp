@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace MmeaAppADC.ViewModels
 {
-    public class FeedViewModel : BaseViewModel
+    public class PostHistoryViewModel : BaseViewModel
     {
         private DBservice _dBservice { get; set; }
         private ObservableCollection<Post> posts;
@@ -25,7 +25,7 @@ namespace MmeaAppADC.ViewModels
             set { isRefreshing = value; OnPropertyChanged(); }
         }
 
-        public FeedViewModel()
+        public PostHistoryViewModel()
         {
             _dBservice = new DBservice();
             Refresh = new Command(async () => await RefreshAsync());
@@ -46,7 +46,7 @@ namespace MmeaAppADC.ViewModels
         {
             var list = new List<Post>();
 
-            list = await _dBservice.GetPosts();
+            list = await _dBservice.GetUserPosts();
             foreach (var item in list)
             {
                 Posts.Add(item);

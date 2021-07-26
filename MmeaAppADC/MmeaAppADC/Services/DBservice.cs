@@ -145,6 +145,7 @@ namespace MmeaAppADC.Services
             List<Post> list = new List<Post>();
             list = (await _firebase.Child("POSTS").OnceAsync<Post>()).Select(p => new Post
             {
+                Username = p.Object.Username,
                 Content = p.Object.Content,
                 PostDate = p.Object.PostDate,
                 UserId = p.Object.UserId,
@@ -167,6 +168,20 @@ namespace MmeaAppADC.Services
                 .Child("POST_IMAGES")
                 .Child(fileName)
                 .GetDownloadUrlAsync();
+        }
+        public async Task<List<Post>> GetUserPosts()
+        {
+            List<Post> list = new List<Post>();
+            list = (await _firebase.Child("POSTS").OnceAsync<Post>()).Select(p => new Post
+            {
+                Username = p.Object.Username,
+                Content = p.Object.Content,
+                PostDate = p.Object.PostDate,
+                UserId = p.Object.UserId,
+                ImageUrl = p.Object.ImageUrl,
+
+            }).Where(u => u.UserId == Preferences.Get("UserId", "")).OrderByDescending(o => o.PostDate).ToList();
+            return list;
         }
     }
 }
